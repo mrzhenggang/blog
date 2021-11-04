@@ -21,4 +21,4 @@ git push -u origin main
 # hexo d
 
 # clean
-hexo cleant
+hexo clean
