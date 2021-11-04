@@ -18,7 +18,7 @@ git commit -m "$msg"
 git push -u origin main
 
 # 推送public内容
-hexo d
+# hexo d
 
 # clean
 hexo cleant
