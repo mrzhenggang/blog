@@ -1,0 +1,791 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="应用软件,beast," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="简介BEAST 2是用于分子序列的贝叶斯系统发生分析的跨平台程序。它使用严格或宽松的分子时钟模型来估计有根的，经过时间测量的系统发育。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="BEAST安装使用教程">
+<meta property="og:url" content="https://blog.mrzhenggang.com/beast-install/index.html">
+<meta property="og:site_name" content="Mr.Zhenggang&#39;s Blog">
+<meta property="og:description" content="简介BEAST 2是用于分子序列的贝叶斯系统发生分析的跨平台程序。它使用严格或宽松的分子时钟模型来估计有根的，经过时间测量的系统发育。">
+<meta property="og:locale">
+<meta property="article:published_time" content="2019-11-03T00:00:00.000Z">
+<meta property="article:modified_time" content="2021-11-04T17:07:54.052Z">
+<meta property="article:author" content="郑刚">
+<meta property="article:tag" content="应用软件">
+<meta property="article:tag" content="beast">
+<meta name="twitter:card" content="summary">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://blog.mrzhenggang.com/beast-install/"/>
+
+
+
+
+
+  <title>BEAST安装使用教程 | Mr.Zhenggang's Blog</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Mr.Zhenggang's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">郑刚的个人博客</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://blog.mrzhenggang.com/beast-install/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Mr.Zhenggang's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">BEAST安装使用教程</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-11-03T08:00:00+08:00">
+                2019-11-03
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%BA%94%E7%94%A8%E8%BD%AF%E4%BB%B6/" itemprop="url" rel="index">
+                    <span itemprop="name">应用软件</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>BEAST 2是用于分子序列的贝叶斯系统发生分析的跨平台程序。它使用严格或宽松的分子时钟模型来估计有根的，经过时间测量的系统发育。</p>
+<span id="more"></span>
+
+<p>它可以用作重建系统发育的方法，但它也是测试进化假设的框架，而无需以单个树形拓扑为条件。BEAST 2使用马尔可夫链蒙特卡罗（MCMC）在树空间上求平均，因此每棵树的权重均与其后验概率成正比。BEAST 2包括用于设置标准分析的图形用户界面和用于分析结果的一套程序。</p>
+<p>官网：<a target="_blank" rel="noopener" href="http://www.beast2.org/">http://www.beast2.org/</a></p>
+<h2 id="下载beast和相关包"><a href="#下载beast和相关包" class="headerlink" title="下载beast和相关包"></a>下载beast和相关包</h2><p>官网下载地址：</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/CompEvol/CBAN">https://github.com/CompEvol/CBAN</a></p>
+<p><a target="_blank" rel="noopener" href="https://github.com/CompEvol/CBAN/blob/master/packages2.6.xml">https://github.com/CompEvol/CBAN/blob/master/packages2.6.xml</a></p>
+<p>下载所有需要的包（依据个人情况下载）：</p>
+<ul>
+<li><p>BEAST_with_JRE2.v2.6.0.Linux.tgz</p>
+<p>  <a target="_blank" rel="noopener" href="https://www.beast2.org/download-linux-with-jre/">https://www.beast2.org/download-linux-with-jre/</a>  # 这个是带java的版本，就省得配置java了。</p>
+</li>
+<li><p>BEAST.package.v2.6.1.zip</p>
+<p>  <a target="_blank" rel="noopener" href="https://github.com/CompEvol/beast2/releases/download/v2.6.1/BEAST.package.v2.6.1.zip">https://github.com/CompEvol/beast2/releases/download/v2.6.1/BEAST.package.v2.6.1.zip</a></p>
+</li>
+<li><p>starbeast2 v0.15.5</p>
+<p>  <a target="_blank" rel="noopener" href="https://github.com/genomescale/starbeast2/releases/download/v0.15.5/StarBEAST2.zip">https://github.com/genomescale/starbeast2/releases/download/v0.15.5/StarBEAST2.zip</a></p>
+</li>
+<li><p>SA v2.0.2</p>
+<p>  <a target="_blank" rel="noopener" href="https://github.com/BEAST2-Dev/bdsky/releases/download/1.4.5/BDSKY.addon.v1.4.5.zip">https://github.com/BEAST2-Dev/bdsky/releases/download/1.4.5/BDSKY.addon.v1.4.5.zip</a></p>
+</li>
+<li><p>BEASTLabs v1.9.0</p>
+<p>  <a target="_blank" rel="noopener" href="https://github.com/BEAST2-Dev/BEASTLabs/releases/download/v1.9.0/BEASTlabs.addon.v1.9.0.zip">https://github.com/BEAST2-Dev/BEASTLabs/releases/download/v1.9.0/BEASTlabs.addon.v1.9.0.zip</a></p>
+</li>
+<li><p>MM v1.1.1</p>
+<p>  <a target="_blank" rel="noopener" href="https://github.com/CompEvol/morph-models/releases/download/untagged-74152ea8507b4e08d3ad/MM.addon.v1.1.1.zip">https://github.com/CompEvol/morph-models/releases/download/untagged-74152ea8507b4e08d3ad/MM.addon.v1.1.1.zip</a></p>
+</li>
+<li><p>BDSKY v1.4.5</p>
+<p>  <a target="_blank" rel="noopener" href="https://github.com/BEAST2-Dev/bdsky/releases/download/1.4.5/BDSKY.addon.v1.4.5.zip">https://github.com/BEAST2-Dev/bdsky/releases/download/1.4.5/BDSKY.addon.v1.4.5.zip</a></p>
+</li>
+</ul>
+<h2 id="上传到服务器"><a href="#上传到服务器" class="headerlink" title="上传到服务器"></a>上传到服务器</h2><p>将所有包上传到服务器</p>
+<h2 id="安装beast"><a href="#安装beast" class="headerlink" title="安装beast"></a>安装beast</h2><p>二进制包 <code>BEAST_with_JRE2.v2.6.0.Linux.tgz</code> 直接解压缩即可使用：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 解压缩</span></span><br><span class="line">tar zxvf BEAST_with_JRE2.v2.6.0.Linux.tgz</span><br><span class="line"><span class="comment"># 设置路径</span></span><br><span class="line">beast_root=/path/to/beast <span class="comment"># 请修改为实际的解压后的绝对路径!!!!</span></span><br><span class="line"><span class="built_in">export</span> PATH=<span class="variable">$beast_root</span>/bin:<span class="variable">$PATH</span></span><br><span class="line"><span class="built_in">export</span> LD_LIBRARY_PATH=<span class="variable">$beast_lib</span>/lib:<span class="variable">$LD_LIBRARY_PATH</span></span><br><span class="line"><span class="built_in">export</span> JAVA_HOME=<span class="variable">$beast_root</span>/jre1.8.0_212</span><br><span class="line"><span class="built_in">export</span> PATH=<span class="variable">$JAVA_HOME</span>/bin:<span class="variable">$PATH</span></span><br><span class="line"><span class="built_in">export</span> CLASSPATH=.:<span class="variable">$JAVA_HOME</span>/lib/dt.jar:<span class="variable">$JAVA_HOME</span>/lib/tools.jar</span><br></pre></td></tr></table></figure>
+
+<h2 id="安装其他包"><a href="#安装其他包" class="headerlink" title="安装其他包"></a>安装其他包</h2><p>创建包安装的根目录：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> [ ! -d ~/.beast/2.6 ];<span class="keyword">then</span></span><br><span class="line">    mkdir -p ~/.beast/2.6</span><br><span class="line"><span class="keyword">fi</span></span><br></pre></td></tr></table></figure>
+
+<p>然后将各个需要的包解压缩到这个目录即可安装成功：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">unzip BEAST.package.v2.6.1.zip -d ~/.beast/2.6/BEAST  <span class="comment"># 2.6.0 -&gt; 2.6.1</span></span><br><span class="line"></span><br><span class="line">unzip StarBEAST2.zip -d ~/.beast/2.6/StarBEAST2</span><br><span class="line">unzip SA.v2.0.2.zip -d ~/.beast/2.6/SA</span><br><span class="line">unzip BEASTlabs.addon.v1.9.0.zip -d ~/.beast/2.6/BEASTlabs</span><br><span class="line">unzip MM.addon.v1.1.1.zip -d ~/.beast/2.6/MM</span><br><span class="line"></span><br><span class="line">mkdir BDSKY</span><br><span class="line">unzip BDSKY.addon.v1.4.5.zip -d BDSKY   <span class="comment"># 官网下载的这个包目录层级不对，所以自己改一下</span></span><br><span class="line">mv BDSKY ~/.beast/2.6</span><br></pre></td></tr></table></figure>
+
+<h2 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h2><p>直接运行 <code>beast</code> 命令，看是否可以成功启动。成功启动如下：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">[zhenggang@ln2%tianhe beast]$ beast</span><br><span class="line"></span><br><span class="line">                        BEAST v2.6.1, 2002-2019</span><br><span class="line">             Bayesian Evolutionary Analysis Sampling Trees</span><br><span class="line">                       Designed and developed by</span><br><span class="line"> Remco Bouckaert, Alexei J. Drummond, Andrew Rambaut &amp; Marc A. Suchard</span><br><span class="line"></span><br><span class="line">                   Centre <span class="keyword">for</span> Computational Evolution</span><br><span class="line">                         University of Auckland</span><br><span class="line">                       r.bouckaert@auckland.ac.nz</span><br><span class="line">                        alexei@cs.auckland.ac.nz</span><br><span class="line"></span><br><span class="line">                   Institute of Evolutionary Biology</span><br><span class="line">                        University of Edinburgh</span><br><span class="line">                           a.rambaut@ed.ac.uk</span><br><span class="line"></span><br><span class="line">                    David Geffen School of Medicine</span><br><span class="line">                 University of California, Los Angeles</span><br><span class="line">                           msuchard@ucla.edu</span><br><span class="line"></span><br><span class="line">                      Downloads, Help &amp; Resources:</span><br><span class="line">                           http://beast2.org/</span><br><span class="line"></span><br><span class="line">  Source code distributed under the GNU Lesser General Public License:</span><br><span class="line">                   http://github.com/CompEvol/beast2</span><br><span class="line"></span><br><span class="line">                           BEAST developers:</span><br><span class="line">   Alex Alekseyenko, Trevor Bedford, Erik Bloomquist, Joseph Heled,</span><br><span class="line"> Sebastian Hoehna, Denise Kuehnert, Philippe Lemey, Wai Lok Sibon Li,</span><br><span class="line">Gerton Lunter, Sidney Markowitz, Vladimir Minin, Michael Defoin Platel,</span><br><span class="line">          Oliver Pybus, Tim Vaughan, Chieh-Hsi Wu, Walter Xie</span><br><span class="line"></span><br><span class="line">                               Thanks to:</span><br><span class="line">          Roald Forsberg, Beth Shapiro and Korbinian Strimmer</span><br></pre></td></tr></table></figure>
+
+<p>我们编写一个简单的 <code>1.xml</code> 输入文件，运行 <code>beast 1.xml</code>，观察是否能够正常运行，例如（部分输出）：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">                        BEAST v2.6.1, 2002-2019</span><br><span class="line">             Bayesian Evolutionary Analysis Sampling Trees</span><br><span class="line">                       Designed and developed by</span><br><span class="line"> Remco Bouckaert, Alexei J. Drummond, Andrew Rambaut &amp; Marc A. Suchard</span><br><span class="line"></span><br><span class="line">...</span><br><span class="line"></span><br><span class="line">                               Thanks to:</span><br><span class="line">          Roald Forsberg, Beth Shapiro and Korbinian Strimmer</span><br><span class="line"></span><br><span class="line">Random number seed: 1572754201802</span><br><span class="line"></span><br><span class="line">File: 1_s_f.xml seed: 1572754201802 threads: 1</span><br><span class="line">Loading package BEAST v2.6.1</span><br><span class="line">Loading package starbeast2 v0.15.5</span><br><span class="line">Loading package SA v2.0.2</span><br><span class="line">Loading package BEASTLabs v1.9.0</span><br><span class="line">Loading package MM v1.1.1</span><br><span class="line">Loading package BDSKY v1.4.5</span><br><span class="line">Loading package BEAST v2.6.1</span><br><span class="line">t82_0: 5000 4</span><br><span class="line"></span><br><span class="line">...</span><br><span class="line"></span><br><span class="line">Start likelihood: -10843.63302484645</span><br><span class="line">Writing file 1_s_f.log</span><br><span class="line">Writing file 1_s_f.trees</span><br><span class="line">         Sample      posterior     likelihood          prior</span><br><span class="line">              0    -10843.6330    -10768.6374       -74.9955 --</span><br><span class="line">           1000     -9928.8676     -9865.9374       -62.9302 --</span><br><span class="line">           2000     -9929.6049     -9862.7149       -66.8900 --</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>官方算例可以前往 <a target="_blank" rel="noopener" href="https://www.beast2.org/tutorials/">https://www.beast2.org/tutorials/</a> 学习。</p>
+</blockquote>
+<h2 id="以后用"><a href="#以后用" class="headerlink" title="以后用"></a>以后用</h2><p>可以将如下代码写在 <code>~/.bashrc</code> 文件中，下回登陆即可自动加载 <code>beast</code> 了。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">beast_root=/path/to/beast <span class="comment"># 请修改为beast的安装路径!!!!</span></span><br><span class="line"><span class="built_in">export</span> PATH=<span class="variable">$beast_root</span>/bin:<span class="variable">$PATH</span></span><br><span class="line"><span class="built_in">export</span> LD_LIBRARY_PATH=<span class="variable">$beast_lib</span>/lib:<span class="variable">$LD_LIBRARY_PATH</span></span><br><span class="line"><span class="built_in">export</span> JAVA_HOME=<span class="variable">$beast_root</span>/jre1.8.0_212</span><br><span class="line"><span class="built_in">export</span> PATH=<span class="variable">$JAVA_HOME</span>/bin:<span class="variable">$PATH</span></span><br><span class="line"><span class="built_in">export</span> CLASSPATH=.:<span class="variable">$JAVA_HOME</span>/lib/dt.jar:<span class="variable">$JAVA_HOME</span>/lib/tools.jar</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/%E5%BA%94%E7%94%A8%E8%BD%AF%E4%BB%B6/" rel="tag"># 应用软件</a>
+          
+            <a href="/tags/beast/" rel="tag"># beast</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/collectl-on-th-es/" rel="next" title="Collectl在TH-ES上的使用">
+                <i class="fa fa-chevron-left"></i> Collectl在TH-ES上的使用
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/data-copy/" rel="prev" title="天河系统数据拷贝系统用户使用流程">
+                天河系统数据拷贝系统用户使用流程 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name"></p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/%7C%7C%20archive">
+              
+                  <span class="site-state-item-count">62</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">23</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">63</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AE%80%E4%BB%8B"><span class="nav-number">1.</span> <span class="nav-text">简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%8B%E8%BD%BDbeast%E5%92%8C%E7%9B%B8%E5%85%B3%E5%8C%85"><span class="nav-number">2.</span> <span class="nav-text">下载beast和相关包</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%8A%E4%BC%A0%E5%88%B0%E6%9C%8D%E5%8A%A1%E5%99%A8"><span class="nav-number">3.</span> <span class="nav-text">上传到服务器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%89%E8%A3%85beast"><span class="nav-number">4.</span> <span class="nav-text">安装beast</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%89%E8%A3%85%E5%85%B6%E4%BB%96%E5%8C%85"><span class="nav-number">5.</span> <span class="nav-text">安装其他包</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B5%8B%E8%AF%95"><span class="nav-number">6.</span> <span class="nav-text">测试</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%A5%E5%90%8E%E7%94%A8"><span class="nav-number">7.</span> <span class="nav-text">以后用</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">郑刚</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

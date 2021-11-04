@@ -1,0 +1,790 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="slurm," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="用户需求 已经提交了很多任务，一部分已经在计算中 RUN，一部分在排队中 PD。现在新提交一个任务，希望该任务能够优先计算。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="SLURM作业计算顺序的调整方法">
+<meta property="og:url" content="https://blog.mrzhenggang.com/slurm-change-job-calculation-order/index.html">
+<meta property="og:site_name" content="Mr.Zhenggang&#39;s Blog">
+<meta property="og:description" content="用户需求 已经提交了很多任务，一部分已经在计算中 RUN，一部分在排队中 PD。现在新提交一个任务，希望该任务能够优先计算。">
+<meta property="og:locale">
+<meta property="article:published_time" content="2019-06-20T00:00:00.000Z">
+<meta property="article:modified_time" content="2021-11-04T17:07:53.983Z">
+<meta property="article:author" content="郑刚">
+<meta property="article:tag" content="slurm">
+<meta name="twitter:card" content="summary">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://blog.mrzhenggang.com/slurm-change-job-calculation-order/"/>
+
+
+
+
+
+  <title>SLURM作业计算顺序的调整方法 | Mr.Zhenggang's Blog</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Mr.Zhenggang's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">郑刚的个人博客</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://blog.mrzhenggang.com/slurm-change-job-calculation-order/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Mr.Zhenggang's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">SLURM作业计算顺序的调整方法</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-06-20T08:00:00+08:00">
+                2019-06-20
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E4%BD%9C%E4%B8%9A%E8%B0%83%E5%BA%A6/" itemprop="url" rel="index">
+                    <span itemprop="name">作业调度</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="用户需求"><a href="#用户需求" class="headerlink" title="用户需求"></a>用户需求</h2><blockquote>
+<p>已经提交了很多任务，一部分已经在计算中 <code>RUN</code>，一部分在排队中 <code>PD</code>。现在新提交一个任务，希望该任务能够优先计算。</p>
+</blockquote>
+<span id="more"></span>
+
+<h2 id="解决思路"><a href="#解决思路" class="headerlink" title="解决思路"></a>解决思路</h2><p>使用 <code>yhcontrol hold | release</code> 来解决。</p>
+<h2 id="解决步骤"><a href="#解决步骤" class="headerlink" title="解决步骤"></a>解决步骤</h2><ol>
+<li>提交新任务。</li>
+<li>使用<code>yhcontrol hold</code>来 <code>暂停</code> 已经提交任务中状态为排队 <code>PD</code> 的任务。</li>
+<li>等待新任务开始计算，使用<code>yhcontrol release</code>来 恢复之前被 <code>暂停</code> 的任务。（手动或写脚本自动实现）</li>
+</ol>
+<h2 id="举例说明"><a href="#举例说明" class="headerlink" title="举例说明"></a>举例说明</h2><h3 id="1-提交新任务"><a href="#1-提交新任务" class="headerlink" title="1.提交新任务"></a>1.提交新任务</h3><p>已经提交了5个任务，使用 <code>yhq</code> 命令查看，得到如下结果：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">$ yhq</span><br><span class="line">JOBID     PARTITION  NAME     USER       ST  TIME      NODES NODELIST(REASON)</span><br><span class="line">100001    debug      sub.sh   zhenggang  R   00:05:01  1     cn[11]</span><br><span class="line">100002    debug      sub.sh   zhenggang  R   00:05:02  1     cn[12]</span><br><span class="line">100003    debug      sub.sh   zhenggang  PD  0:00      1     (Resources)</span><br><span class="line">100004    debug      sub.sh   zhenggang  PD  0:00      1     (Resources)</span><br><span class="line">100005    debug      sub.sh   zhenggang  PD  0:00      1     (Resources)</span><br></pre></td></tr></table></figure>
+
+<p>其中，<code>100001 100002</code> 在计算， <code>100003 100004 100005</code> 在排队。</p>
+<p>现在我们提交一个新的任务，然后再 <code>yhq</code> 查看，得到如下结果：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">$ yhq</span><br><span class="line">JOBID     PARTITION  NAME     USER       ST  TIME      NODES NODELIST(REASON)</span><br><span class="line">100001    debug      sub.sh   zhenggang  R   00:05:11  1     cn[11]</span><br><span class="line">100002    debug      sub.sh   zhenggang  R   00:05:12  1     cn[12]</span><br><span class="line">100003    debug      sub.sh   zhenggang  PD  0:00      1     (Resources)</span><br><span class="line">100004    debug      sub.sh   zhenggang  PD  0:00      1     (Resources)</span><br><span class="line">100005    debug      sub.sh   zhenggang  PD  0:00      1     (Resources)</span><br><span class="line">100006    debug      sub.sh   zhenggang  PD  0:00      1     (Resources)</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-暂停任务"><a href="#2-暂停任务" class="headerlink" title="2.暂停任务"></a>2.暂停任务</h3><p>我们希望任务 <code>100006</code> 在任务 <code>100003 100004 100005</code> 之前先计算，那么我们就将这3个任务 <code>hold</code> 一下：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yhcontrol hold 100003 100004 100005</span><br></pre></td></tr></table></figure>
+
+<p>然后我们再 <code>yhq</code> 查看，得到如下结果：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">$ yhq</span><br><span class="line">JOBID     PARTITION  NAME     USER       ST  TIME      NODES NODELIST(REASON)</span><br><span class="line">100001    debug      sub.sh   zhenggang  R   00:05:21  1     cn[11]</span><br><span class="line">100002    debug      sub.sh   zhenggang  R   00:05:22  1     cn[12]</span><br><span class="line">100003    debug      sub.sh   zhenggang  PD  0:00      1     (JobHeldUser)</span><br><span class="line">100004    debug      sub.sh   zhenggang  PD  0:00      1     (JobHeldUser)</span><br><span class="line">100005    debug      sub.sh   zhenggang  PD  0:00      1     (JobHeldUser)</span><br><span class="line">100006    debug      sub.sh   zhenggang  PD  0:00      1     (Resources)</span><br></pre></td></tr></table></figure>
+
+<p>可以看到这3个任务的 <code>NODELIST(REASON)</code> 变为了 <code>JobHeldUser</code> 。</p>
+<p>这样修改后，当系统有可用的计算资源时，会优先计算任务 <code>100006</code> ，跳过被 <code>hold</code> 的任务。</p>
+<h3 id="3-恢复任务"><a href="#3-恢复任务" class="headerlink" title="3.恢复任务"></a>3.恢复任务</h3><p>之前我们把任务 <code>100003 100004 100005</code> 变为了 <code>hold</code> 的任务，如果不恢复，那么它们会一直无法计算的。</p>
+<p>所以需要在希望优先计算的任务 <code>100006</code> 开始计算后，将这些被 <code>hold</code> 的任务状态改回来，即为 <code>release</code> ， 命令如下：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yhcontrol release 100003 100004 100005</span><br></pre></td></tr></table></figure>
+
+<p>然后我们再 <code>yhq</code> 查看，得到如下结果：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">$ yhq</span><br><span class="line">JOBID     PARTITION  NAME     USER       ST  TIME      NODES NODELIST(REASON)</span><br><span class="line">100001    debug      sub.sh   zhenggang  R   00:05:21  1     cn[11]</span><br><span class="line">100002    debug      sub.sh   zhenggang  R   00:05:22  1     cn[12]</span><br><span class="line">100003    debug      sub.sh   zhenggang  PD  0:00      1     (Resources)</span><br><span class="line">100004    debug      sub.sh   zhenggang  PD  0:00      1     (Resources)</span><br><span class="line">100005    debug      sub.sh   zhenggang  PD  0:00      1     (Resources)</span><br><span class="line">100006    debug      sub.sh   zhenggang  R   0:10      1     cn[13]</span><br></pre></td></tr></table></figure>
+
+<h3 id="4-自动暂停-恢复"><a href="#4-自动暂停-恢复" class="headerlink" title="4.自动暂停|恢复"></a>4.自动暂停|恢复</h3><h4 id="4-1-暂停任务"><a href="#4-1-暂停任务" class="headerlink" title="4.1 暂停任务"></a>4.1 暂停任务</h4><p>当需要被 <code>hold</code> 的任务很多的时候，使用 <code>yhq</code> 命令得到 <code>jobid</code> 的列表，然后逐一粘贴，不是很方便。我们可以写一个简单的脚本实现。</p>
+<p>1.获得需要被hold的任务列表，存到一个临时文件 <code>jobhold.txt</code> 中：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yhq | grep PD | awk <span class="string">&#x27;&#123;print $1&#125;&#x27;</span> &gt; jobhold.txt</span><br></pre></td></tr></table></figure>
+
+<p>2.循环遍历这个临时文件的每一行，逐一 <code>hold</code> 这些任务：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> jobid <span class="keyword">in</span> `cat jobhold.txt`;</span><br><span class="line"><span class="keyword">do</span></span><br><span class="line">yhcontrol hold <span class="variable">$jobid</span></span><br><span class="line"><span class="keyword">done</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="4-2-恢复任务"><a href="#4-2-恢复任务" class="headerlink" title="4.2 恢复任务"></a>4.2 恢复任务</h4><p>我们可以编写一个脚本，例如 <code>jobrelease.sh</code> ，然后提交到登陆节点后台，自动的定期检查新提交任务的状态，如果任务已经在计算，则自动恢复之前被 <code>hold</code> 的任务。脚本举例如下：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"></span><br><span class="line">jobid=100006</span><br><span class="line"></span><br><span class="line"><span class="keyword">while</span> ture</span><br><span class="line"><span class="keyword">do</span></span><br><span class="line">  jobst=`yhqueue | grep <span class="variable">$jobid</span> | awk <span class="string">&#x27;&#123;print $5&#125;&#x27;</span> || <span class="built_in">echo</span> <span class="string">&quot;None&quot;</span>`</span><br><span class="line">  <span class="keyword">if</span> [[ <span class="variable">$jobst</span> == <span class="string">&#x27;PD&#x27;</span> ]];<span class="keyword">then</span></span><br><span class="line">    sleep 60</span><br><span class="line">  <span class="keyword">else</span></span><br><span class="line">    <span class="keyword">for</span> jobid <span class="keyword">in</span> `cat jobhold.txt`;</span><br><span class="line">    <span class="keyword">do</span></span><br><span class="line">      yhcontrol release <span class="variable">$jobid</span></span><br><span class="line">    <span class="keyword">done</span></span><br><span class="line">    <span class="built_in">break</span></span><br><span class="line">  <span class="keyword">fi</span></span><br><span class="line"><span class="keyword">done</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>脚本中 <code>jobid=&#39;100006&#39;</code> 需要根据实际需求来修改。</p>
+</blockquote>
+<p>然后将这个脚本提交到登陆节点后台：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">chmod +x jobrelease.sh</span><br><span class="line">nohup ./jobrelease.sh &gt; /dev/null 2&gt;&amp;1 &amp;</span><br></pre></td></tr></table></figure>
+
+
+<p>如果我们不止有一个任务需要被优先计算，例如新提交了 <code>100006 100007 100008</code> 三个任务，希望先算这3个，然后再算之前提交的任务，我们可以略微修改一下刚才的 <code>jobrelease.sh</code> 脚本：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"></span><br><span class="line">jobids=(100006 100007 100008)</span><br><span class="line">bool_release=<span class="literal">true</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">while</span> <span class="literal">true</span>;</span><br><span class="line"><span class="keyword">do</span></span><br><span class="line">  <span class="keyword">for</span> jobid <span class="keyword">in</span> <span class="variable">$&#123;jobids[@]&#125;</span></span><br><span class="line">  <span class="keyword">do</span></span><br><span class="line">    jobst=`yhqueue | grep <span class="variable">$jobid</span> | awk <span class="string">&#x27;&#123;print $5&#125;&#x27;</span> || <span class="built_in">echo</span> <span class="string">&quot;None&quot;</span>`</span><br><span class="line">    <span class="keyword">if</span> [[ <span class="variable">$jobst</span> == <span class="string">&#x27;PD&#x27;</span> ]] ;<span class="keyword">then</span></span><br><span class="line">      bool_release=<span class="literal">false</span></span><br><span class="line">    <span class="keyword">fi</span></span><br><span class="line">  <span class="keyword">done</span></span><br><span class="line">  </span><br><span class="line">  <span class="keyword">if</span> [[ <span class="variable">$bool_release</span> == <span class="string">&#x27;true&#x27;</span> ]] ;<span class="keyword">then</span> </span><br><span class="line">    <span class="keyword">for</span> jobid <span class="keyword">in</span> `cat jobhold.txt`;</span><br><span class="line">    <span class="keyword">do</span></span><br><span class="line">      yhcontrol release <span class="variable">$jobid</span></span><br><span class="line">    <span class="keyword">done</span></span><br><span class="line">    <span class="built_in">break</span></span><br><span class="line">  <span class="keyword">else</span></span><br><span class="line">    sleep 60</span><br><span class="line">  <span class="keyword">fi</span></span><br><span class="line"><span class="keyword">done</span></span><br></pre></td></tr></table></figure>
+
+<p>然后再提交：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">chmod +x jobrelease.sh</span><br><span class="line">nohup ./jobrelease.sh &gt; /dev/null 2&gt;&amp;1 &amp;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/slurm/" rel="tag"># slurm</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/storage-quota-introduction/" rel="next" title="关于存储配额的说明">
+                <i class="fa fa-chevron-left"></i> 关于存储配额的说明
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/collectl-on-th1a/" rel="prev" title="Collectl在TH-1A上的使用">
+                Collectl在TH-1A上的使用 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name"></p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/%7C%7C%20archive">
+              
+                  <span class="site-state-item-count">62</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">23</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">63</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%94%A8%E6%88%B7%E9%9C%80%E6%B1%82"><span class="nav-number">1.</span> <span class="nav-text">用户需求</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%A7%A3%E5%86%B3%E6%80%9D%E8%B7%AF"><span class="nav-number">2.</span> <span class="nav-text">解决思路</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%A7%A3%E5%86%B3%E6%AD%A5%E9%AA%A4"><span class="nav-number">3.</span> <span class="nav-text">解决步骤</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%BE%E4%BE%8B%E8%AF%B4%E6%98%8E"><span class="nav-number">4.</span> <span class="nav-text">举例说明</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E6%8F%90%E4%BA%A4%E6%96%B0%E4%BB%BB%E5%8A%A1"><span class="nav-number">4.1.</span> <span class="nav-text">1.提交新任务</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E6%9A%82%E5%81%9C%E4%BB%BB%E5%8A%A1"><span class="nav-number">4.2.</span> <span class="nav-text">2.暂停任务</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-%E6%81%A2%E5%A4%8D%E4%BB%BB%E5%8A%A1"><span class="nav-number">4.3.</span> <span class="nav-text">3.恢复任务</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-%E8%87%AA%E5%8A%A8%E6%9A%82%E5%81%9C-%E6%81%A2%E5%A4%8D"><span class="nav-number">4.4.</span> <span class="nav-text">4.自动暂停|恢复</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#4-1-%E6%9A%82%E5%81%9C%E4%BB%BB%E5%8A%A1"><span class="nav-number">4.4.1.</span> <span class="nav-text">4.1 暂停任务</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-2-%E6%81%A2%E5%A4%8D%E4%BB%BB%E5%8A%A1"><span class="nav-number">4.4.2.</span> <span class="nav-text">4.2 恢复任务</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">郑刚</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

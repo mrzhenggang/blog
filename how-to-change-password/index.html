@@ -1,0 +1,775 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="密码," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="用户密码管理 用户在使用天河系统的时候，需要使用SSH工具连接到系统的登陆节点，输入系统账号和登录密码。 登陆密码建议定期更换（系统每过一段时间会强制要求更换，快到期时登陆系统后会有英文提示）。 用户可以使用password密码修改密码。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="如何修改系统密码">
+<meta property="og:url" content="https://blog.mrzhenggang.com/how-to-change-password/index.html">
+<meta property="og:site_name" content="Mr.Zhenggang&#39;s Blog">
+<meta property="og:description" content="用户密码管理 用户在使用天河系统的时候，需要使用SSH工具连接到系统的登陆节点，输入系统账号和登录密码。 登陆密码建议定期更换（系统每过一段时间会强制要求更换，快到期时登陆系统后会有英文提示）。 用户可以使用password密码修改密码。">
+<meta property="og:locale">
+<meta property="article:published_time" content="2020-02-24T00:00:00.000Z">
+<meta property="article:modified_time" content="2021-11-04T17:07:54.081Z">
+<meta property="article:author" content="郑刚">
+<meta property="article:tag" content="密码">
+<meta name="twitter:card" content="summary">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://blog.mrzhenggang.com/how-to-change-password/"/>
+
+
+
+
+
+  <title>如何修改系统密码 | Mr.Zhenggang's Blog</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Mr.Zhenggang's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">郑刚的个人博客</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://blog.mrzhenggang.com/how-to-change-password/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Mr.Zhenggang's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">如何修改系统密码</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-02-24T08:00:00+08:00">
+                2020-02-24
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%AF%86%E7%A0%81/" itemprop="url" rel="index">
+                    <span itemprop="name">密码</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="用户密码管理"><a href="#用户密码管理" class="headerlink" title="用户密码管理"></a>用户密码管理</h2><ol>
+<li>用户在使用天河系统的时候，需要使用SSH工具连接到系统的登陆节点，输入系统账号和登录密码。</li>
+<li>登陆密码建议定期更换（系统每过一段时间会强制要求更换，快到期时登陆系统后会有英文提示）。</li>
+<li>用户可以使用<code>password</code>密码修改密码。</li>
+</ol>
+<span id="more"></span>
+
+
+
+<h2 id="如何修改密码"><a href="#如何修改密码" class="headerlink" title="如何修改密码"></a>如何修改密码</h2><h3 id="能够正常登陆，主动修改密码"><a href="#能够正常登陆，主动修改密码" class="headerlink" title="能够正常登陆，主动修改密码"></a>能够正常登陆，主动修改密码</h3><p>当出现用户密码快要过期的提示时，建议用户主动修改密码。修改密码的方法很简单，只需要以下几步：</p>
+<ol>
+<li>登陆系统</li>
+<li>输入修改密码命令：<code>password</code></li>
+<li>输入一次旧密码（注意：输入密码时，并没有显示已经输入的内容，这是一种保护机制，不是输不进去）</li>
+<li>然后再输入两次新密码（注意：密码要求一定的安全强度，比如数字、字母、符号都要有，要满足一定的长度，不能和用户名太相似等等，如果输入后未通过，请阅读英文提示即可）</li>
+<li>重新用新密码登录</li>
+</ol>
+<p>举例：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">[zhenggang@ln2 ~]$ passwd </span><br><span class="line">Changing password <span class="keyword">for</span> user zhenggang. </span><br><span class="line">Enter login(LDAP) password:    <span class="comment"># 注意：在输入原始账号密码或新密码时，系统都不会显示输入的字符</span></span><br><span class="line">New password:   </span><br><span class="line">Re-enter new password:   </span><br><span class="line">LDAP password information changed <span class="keyword">for</span> ncps </span><br><span class="line">passwd: all authentication tokens updated successfully. </span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="已经过期无法登陆，强制修改密码"><a href="#已经过期无法登陆，强制修改密码" class="headerlink" title="已经过期无法登陆，强制修改密码"></a>已经过期无法登陆，强制修改密码</h3><p>如果用户长期<strong>无视</strong>密码快要过期的提示警告，那么一旦密码过期用户将无法正常登陆系统。这时也不用担心，用户可以依据提示，完成修改密码的步骤，即可重新登录系统。</p>
+<ol>
+<li>登陆系统</li>
+<li>系统提示密码过期，请修改密码</li>
+<li>输入一次旧密码（注意：输入密码时，并没有显示已经输入的内容，这是一种保护机制，不是输不进去）</li>
+<li>然后再输入两次新密码</li>
+<li>重新用新密码登录</li>
+</ol>
+<p>举例：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">WARNING: Your password has expired.</span><br><span class="line">You must change your password now and login again!</span><br><span class="line">更改用户 zhenggang 的密码 。</span><br><span class="line">(current) LDAP Password:</span><br><span class="line">新的 密码：</span><br><span class="line">新的 密码：</span><br><span class="line">重新输入新的 密码：</span><br><span class="line">passwd：所有的身份验证令牌已经成功更新。</span><br></pre></td></tr></table></figure>
+
+
+
+<p>注意：如果出现了乱码，或者显示异常等情况，很有可能是由于您使用的SSH登陆工具对 <strong>中文</strong> 支持不好，请尝试使用其他登陆工具。在这里我们推荐使用 <code>mobaxterm</code> 工具免费版。</p>
+<p>关于该工具的详细介绍可以参考：<a href="https://blog.mrzhenggang.com/supercomputer-courses-ssh-sftp-mobaxterm/">超算入门课程2 ssh和sftp工具的使用之mobaxterm软件教学</a></p>
+<h2 id="长期未使用用户锁定"><a href="#长期未使用用户锁定" class="headerlink" title="长期未使用用户锁定"></a>长期未使用用户锁定</h2><p>如果一个系统账号长期未登录，系统会将该账号<strong>锁定</strong>。用户登录时会提示<strong>账号已过期</strong>。</p>
+<p>此时，只需要联系中心技术人员，让管理员协助修改即可。</p>
+<h2 id="VPN登陆密码修改"><a href="#VPN登陆密码修改" class="headerlink" title="VPN登陆密码修改"></a>VPN登陆密码修改</h2><p>如需更换 VPN 账号密码，请告知中心技术人员，我们帮您更换。 普通用户无法自行修改。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/%E5%AF%86%E7%A0%81/" rel="tag"># 密码</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/trial" rel="next" title="试用说明">
+                <i class="fa fa-chevron-left"></i> 试用说明
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/how-to-use-wrf/" rel="prev" title="如何使用WRF">
+                如何使用WRF <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name"></p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/%7C%7C%20archive">
+              
+                  <span class="site-state-item-count">62</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">23</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">63</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%94%A8%E6%88%B7%E5%AF%86%E7%A0%81%E7%AE%A1%E7%90%86"><span class="nav-number">1.</span> <span class="nav-text">用户密码管理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E4%BF%AE%E6%94%B9%E5%AF%86%E7%A0%81"><span class="nav-number">2.</span> <span class="nav-text">如何修改密码</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%83%BD%E5%A4%9F%E6%AD%A3%E5%B8%B8%E7%99%BB%E9%99%86%EF%BC%8C%E4%B8%BB%E5%8A%A8%E4%BF%AE%E6%94%B9%E5%AF%86%E7%A0%81"><span class="nav-number">2.1.</span> <span class="nav-text">能够正常登陆，主动修改密码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B7%B2%E7%BB%8F%E8%BF%87%E6%9C%9F%E6%97%A0%E6%B3%95%E7%99%BB%E9%99%86%EF%BC%8C%E5%BC%BA%E5%88%B6%E4%BF%AE%E6%94%B9%E5%AF%86%E7%A0%81"><span class="nav-number">2.2.</span> <span class="nav-text">已经过期无法登陆，强制修改密码</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%95%BF%E6%9C%9F%E6%9C%AA%E4%BD%BF%E7%94%A8%E7%94%A8%E6%88%B7%E9%94%81%E5%AE%9A"><span class="nav-number">3.</span> <span class="nav-text">长期未使用用户锁定</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#VPN%E7%99%BB%E9%99%86%E5%AF%86%E7%A0%81%E4%BF%AE%E6%94%B9"><span class="nav-number">4.</span> <span class="nav-text">VPN登陆密码修改</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">郑刚</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

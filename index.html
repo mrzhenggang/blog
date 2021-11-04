@@ -262,7 +262,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://blog.mrzhenggang.com/2021/11/05/hello-world/">
+    <link itemprop="mainEntityOfPage" href="https://blog.mrzhenggang.com/2021/11/05/%E5%8D%9A%E5%AE%A2%E9%85%8D%E7%BD%AE/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="">
@@ -281,7 +281,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2021/11/05/hello-world/" itemprop="url">Hello World</a></h1>
+                <a class="post-title-link" href="/2021/11/05/%E5%8D%9A%E5%AE%A2%E9%85%8D%E7%BD%AE/" itemprop="url">未命名</a></h1>
         
 
         <div class="post-meta">
@@ -293,7 +293,7 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-11-05T00:01:57+08:00">
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-11-05T01:07:54+08:00">
                 2021-11-05
               </time>
             
@@ -333,22 +333,1636 @@
       
         
           
-            <p><strong>重新初始化 blog.mrzhenggang.com 中 ls<br>rm r， 请先访问  nscc.mrzhenggang.com</strong></p>
-<p>Welcome to <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a target="_blank" rel="noopener" href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a target="_blank" rel="noopener" href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
+            <h2 id="目标"><a href="#目标" class="headerlink" title="目标"></a>目标</h2><ul>
+<li>专注写内容，避免花里胡哨</li>
+<li>需要有搜索功能</li>
+<li>需要能访问</li>
+</ul>
+<h2 id="基于hexo-next"><a href="#基于hexo-next" class="headerlink" title="基于hexo+next"></a>基于hexo+next</h2><ul>
+<li>  npm install hexo-cli -g</li>
+<li>  hexo init blog</li>
+<li>  cd blog</li>
+<li>  npm install</li>
+<li>  hexo server<br>、<br>问题1：</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&#123;% extends &#x27;_layout.swig&#x27; %&#125; &#123;% import &#x27;_macro/post.swig&#x27; as post_template %&#125; &#123;% import &#x27;_macro/sidebar.swig&#x27; as sidebar_template %&#125; &#123;% block title %&#125;&#123;&#123; config.title &#125;&#125;&#123;% if theme.index_with_subtitle and config.subtitle %&#125; - &#123;&#123;config.subtitle &#125;&#125;&#123;% endif %&#125;&#123;% endblock %&#125; &#123;% block page_class %&#125; &#123;% if is_home() %&#125;page-home&#123;% endif -%&#125; &#123;% endblock %&#125; &#123;% block content %&#125;</span><br><span class="line"></span><br><span class="line">&#123;% for post in page.posts %&#125; &#123;&#123; post_template.render(post, true) &#125;&#125; &#123;% endfor %&#125;</span><br><span class="line"></span><br><span class="line">&#123;% include &#x27;_partials/pagination.swig&#x27; %&#125; &#123;% endblock %&#125; &#123;% block sidebar %&#125; &#123;&#123; sidebar_template.render(false) &#125;&#125; &#123;% endblock %&#125;</span><br></pre></td></tr></table></figure>
 
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+<p>解决1：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm i hexo-renderer-swig</span><br></pre></td></tr></table></figure>
 
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
 
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+<p>操作：拷贝主题配置文件到根目录，重命名为 <code>_config.next.yaml</code></p>
+<p>报错2：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo next Cannot GET /categories/%20 </span><br></pre></td></tr></table></figure>
 
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
+<p>解决2：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">经过一通搜索，知道%20 是空格的意思，把配置文件里 ||之前所有的空格删掉即可。</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><a target="_blank" rel="noopener" href="https://hexo.io/zh-cn/index.html">Hexo</a></li>
+<li><a target="_blank" rel="noopener" href="https://theme-next.iissnan.com/">NexT 使用文档 (iissnan.com)</a></li>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_41287260/article/details/97758641">Hexo新建标签、分类、归档等页面_荷塘月色-CSDN博客_hexo分类页面</a></li>
+</ul>
+<h2 id="config-yml-文件配置"><a href="#config-yml-文件配置" class="headerlink" title="_config.yml 文件配置"></a>_config.yml 文件配置</h2><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Hexo Configuration</span></span><br><span class="line"><span class="comment">## Docs: https://hexo.io/docs/configuration.html</span></span><br><span class="line"><span class="comment">## Source: https://github.com/hexojs/hexo/</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Site</span></span><br><span class="line"><span class="attr">title:</span> <span class="string">Mr.ZhengGang&#x27;s</span> <span class="string">Blog</span></span><br><span class="line"><span class="attr">subtitle:</span> <span class="string">&#x27;我的个人博客&#x27;</span></span><br><span class="line"><span class="attr">description:</span> <span class="string">&#x27;专注超级计算领域的技术分享&#x27;</span></span><br><span class="line"><span class="attr">keywords:</span> <span class="string">HPC,超算,软件,个人技术博客,高性能计算,技术文档,学习,用户手册等技术文章</span></span><br><span class="line"><span class="attr">author:</span> <span class="string">Zheng</span> <span class="string">Gang</span></span><br><span class="line"><span class="attr">language:</span> <span class="string">zh-CN</span></span><br><span class="line"><span class="attr">timezone:</span> <span class="string">Asia/Shanghai</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># URL</span></span><br><span class="line"><span class="comment">## Set your site url here. For example, if you use GitHub Page, set url as &#x27;https://username.github.io/project&#x27;</span></span><br><span class="line"><span class="attr">url:</span> <span class="string">http://blog.mrzhenggang.com</span></span><br><span class="line"><span class="comment">#permalink: :year/:month/:day/:title/</span></span><br><span class="line"><span class="comment"># permalink: :year/:month/:day/:name/</span></span><br><span class="line"><span class="comment"># permalink_defaults: http://blog.mrzhenggang.com/</span></span><br><span class="line"><span class="attr">pretty_urls:</span></span><br><span class="line">  <span class="attr">trailing_index:</span> <span class="literal">true</span> <span class="comment"># Set to false to remove trailing &#x27;index.html&#x27; from permalinks</span></span><br><span class="line">  <span class="attr">trailing_html:</span> <span class="literal">true</span> <span class="comment"># Set to false to remove trailing &#x27;.html&#x27; from permalinks</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Directory</span></span><br><span class="line"><span class="attr">source_dir:</span> <span class="string">source</span></span><br><span class="line"><span class="attr">public_dir:</span> <span class="string">public</span></span><br><span class="line"><span class="attr">tag_dir:</span> <span class="string">tags</span></span><br><span class="line"><span class="attr">archive_dir:</span> <span class="string">archives</span></span><br><span class="line"><span class="attr">category_dir:</span> <span class="string">categories</span></span><br><span class="line"><span class="attr">code_dir:</span> <span class="string">downloads/code</span></span><br><span class="line"><span class="attr">i18n_dir:</span> <span class="string">:lang</span></span><br><span class="line"><span class="attr">skip_render:</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Writing</span></span><br><span class="line"><span class="attr">new_post_name:</span> <span class="string">:title.md</span> <span class="comment"># File name of new posts</span></span><br><span class="line"><span class="attr">default_layout:</span> <span class="string">post</span></span><br><span class="line"><span class="attr">titlecase:</span> <span class="literal">false</span> <span class="comment"># Transform title into titlecase</span></span><br><span class="line"><span class="attr">external_link:</span></span><br><span class="line">  <span class="attr">enable:</span> <span class="literal">true</span> <span class="comment"># Open external links in new tab</span></span><br><span class="line">  <span class="attr">field:</span> <span class="string">site</span> <span class="comment"># Apply to the whole site</span></span><br><span class="line">  <span class="attr">exclude:</span> <span class="string">&#x27;&#x27;</span></span><br><span class="line"><span class="attr">filename_case:</span> <span class="number">0</span></span><br><span class="line"><span class="attr">render_drafts:</span> <span class="literal">false</span></span><br><span class="line"><span class="attr">post_asset_folder:</span> <span class="literal">false</span></span><br><span class="line"><span class="attr">relative_link:</span> <span class="literal">false</span></span><br><span class="line"><span class="attr">future:</span> <span class="literal">true</span></span><br><span class="line"><span class="attr">highlight:</span></span><br><span class="line">  <span class="attr">enable:</span> <span class="literal">true</span></span><br><span class="line">  <span class="attr">line_number:</span> <span class="literal">true</span></span><br><span class="line">  <span class="attr">auto_detect:</span> <span class="literal">false</span></span><br><span class="line">  <span class="attr">tab_replace:</span> <span class="string">&#x27;&#x27;</span></span><br><span class="line">  <span class="attr">wrap:</span> <span class="literal">true</span></span><br><span class="line">  <span class="attr">hljs:</span> <span class="literal">false</span></span><br><span class="line"><span class="attr">prismjs:</span></span><br><span class="line">  <span class="attr">enable:</span> <span class="literal">false</span></span><br><span class="line">  <span class="attr">preprocess:</span> <span class="literal">true</span></span><br><span class="line">  <span class="attr">line_number:</span> <span class="literal">true</span></span><br><span class="line">  <span class="attr">tab_replace:</span> <span class="string">&#x27;&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Home page setting</span></span><br><span class="line"><span class="comment"># path: Root path for your blogs index page. (default = &#x27;&#x27;)</span></span><br><span class="line"><span class="comment"># per_page: Posts displayed per page. (0 = disable pagination)</span></span><br><span class="line"><span class="comment"># order_by: Posts order. (Order by date descending by default)</span></span><br><span class="line"><span class="attr">index_generator:</span></span><br><span class="line">  <span class="attr">path:</span> <span class="string">&#x27;&#x27;</span></span><br><span class="line">  <span class="attr">per_page:</span> <span class="number">10</span></span><br><span class="line">  <span class="attr">order_by:</span> <span class="string">-date</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Category &amp; Tag</span></span><br><span class="line"><span class="attr">default_category:</span> <span class="string">uncategorized</span></span><br><span class="line"><span class="attr">category_map:</span></span><br><span class="line"><span class="attr">tag_map:</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Metadata elements</span></span><br><span class="line"><span class="comment">## https://developer.mozilla.org/en-US/docs/Web/HTML/Element/meta</span></span><br><span class="line"><span class="attr">meta_generator:</span> <span class="literal">true</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Date / Time format</span></span><br><span class="line"><span class="comment">## Hexo uses Moment.js to parse and display date</span></span><br><span class="line"><span class="comment">## You can customize the date format as defined in</span></span><br><span class="line"><span class="comment">## http://momentjs.com/docs/#/displaying/format/</span></span><br><span class="line"><span class="attr">date_format:</span> <span class="string">YYYY-MM-DD</span></span><br><span class="line"><span class="attr">time_format:</span> <span class="string">HH:mm:ss</span></span><br><span class="line"><span class="comment">## updated_option supports &#x27;mtime&#x27;, &#x27;date&#x27;, &#x27;empty&#x27;</span></span><br><span class="line"><span class="attr">updated_option:</span> <span class="string">&#x27;mtime&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Pagination</span></span><br><span class="line"><span class="comment">## Set per_page to 0 to disable pagination</span></span><br><span class="line"><span class="attr">per_page:</span> <span class="number">10</span></span><br><span class="line"><span class="attr">pagination_dir:</span> <span class="string">page</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Include / Exclude file(s)</span></span><br><span class="line"><span class="comment">## include:/exclude: options only apply to the &#x27;source/&#x27; folder</span></span><br><span class="line"><span class="attr">include:</span></span><br><span class="line"><span class="attr">exclude:</span></span><br><span class="line"><span class="attr">ignore:</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Extensions</span></span><br><span class="line"><span class="comment">## Plugins: https://hexo.io/plugins/</span></span><br><span class="line"><span class="comment">## Themes: https://hexo.io/themes/</span></span><br><span class="line"><span class="comment">#theme: landscape</span></span><br><span class="line"><span class="comment">#theme: butterfly</span></span><br><span class="line"><span class="attr">theme:</span> <span class="string">matery</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Deployment</span></span><br><span class="line"><span class="comment">## Docs: https://hexo.io/docs/one-command-deployment</span></span><br><span class="line"><span class="attr">deploy:</span></span><br><span class="line">  <span class="attr">type:</span> <span class="string">git</span></span><br><span class="line">  <span class="comment">#repo: https://github.com/mrzhenggang/myblog_public.git # 仓库地址</span></span><br><span class="line">  <span class="attr">repo:</span> <span class="string">git@github.com:mrzhenggang/myblog_public.git</span> <span class="comment"># 仓库地址</span></span><br><span class="line">  <span class="attr">branch:</span> <span class="string">main</span> <span class="comment"># 部署分支</span></span><br><span class="line"></span><br><span class="line"><span class="attr">local_search:</span></span><br><span class="line">  <span class="attr">enable:</span> <span class="literal">true</span></span><br><span class="line">  <span class="comment"># path: https://blog.mrzhenggang.com</span></span><br><span class="line">  <span class="comment"># field: post</span></span><br><span class="line">  <span class="attr">labels:</span></span><br><span class="line">    <span class="attr">input_placeholder:</span> <span class="string">搜索一下</span></span><br><span class="line">    <span class="attr">hits_empty:</span> <span class="string">&quot;对不起，没有找到: $&#123;query&#125;&quot;</span> <span class="comment"># if there are no result</span></span><br><span class="line"></span><br><span class="line"><span class="attr">search:</span></span><br><span class="line">  <span class="attr">path:</span> <span class="string">search.xml</span></span><br><span class="line">  <span class="attr">field:</span> <span class="string">post</span></span><br><span class="line">  <span class="attr">format:</span> <span class="string">html</span></span><br><span class="line">  <span class="attr">limit:</span> <span class="number">10000</span></span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="deploy-sh-脚本"><a href="#deploy-sh-脚本" class="headerlink" title="deploy.sh 脚本"></a>deploy.sh 脚本</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"><span class="built_in">set</span> -ex</span><br><span class="line">git config --global http.sslVerify <span class="string">&quot;false&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> [ -d public ]; <span class="keyword">then</span></span><br><span class="line">  rm -rf public</span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 生成静态文件</span></span><br><span class="line">hexo clean &amp;&amp; hexo g </span><br><span class="line"><span class="comment"># echo &quot;blog.mrzhenggang.com&quot; &gt; public/CNAME</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 推送本站</span></span><br><span class="line"><span class="comment"># 配置git</span></span><br><span class="line">git config --global user.name <span class="string">&quot;zhenggang&quot;</span></span><br><span class="line">git config --global user.email <span class="string">&quot;mrzhenggang@foxmail.com&quot;</span> </span><br><span class="line"></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># deploy nscc.git</span></span><br><span class="line"><span class="keyword">if</span> [ ! -d blog ];<span class="keyword">then</span></span><br><span class="line">  git <span class="built_in">clone</span> git@github.com:mrzhenggang/blog.git</span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">cd</span> blog</span><br><span class="line">cp -rf ../public/* .</span><br><span class="line"></span><br><span class="line">msg=<span class="string">&#x27;来自郑刚的手动部署&#x27;</span></span><br><span class="line">git add -A</span><br><span class="line">git commit -m <span class="string">&quot;<span class="variable">$msg</span>&quot;</span></span><br><span class="line">git push -u origin main</span><br><span class="line"></span><br><span class="line"><span class="comment"># 推送public内容</span></span><br><span class="line"><span class="comment"># hexo d</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">cd</span> ..</span><br><span class="line"></span><br><span class="line"><span class="comment"># clean</span></span><br><span class="line">hexo clean</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="github-仓库配置"><a href="#github-仓库配置" class="headerlink" title="github 仓库配置"></a>github 仓库配置</h2><ol>
+<li>创建仓库 blog</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git clone git@github.com:mrzhenggang/blog.git</span><br></pre></td></tr></table></figure>
+
+
+<ol start="3">
+<li>克隆到本地</li>
+<li></li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
 
           
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://blog.mrzhenggang.com/ssh-multi-users-setting/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Mr.Zhenggang's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/ssh-multi-users-setting/" itemprop="url">多用户使用同一账号SSH时的自动登陆配置</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-07-04T10:33:20+08:00">
+                2021-07-04
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/ssh/" itemprop="url" rel="index">
+                    <span itemprop="name">ssh</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h2><p>在超算集群远程SSH使用的场景下，经常有多个用户同时使用同一个账号的情况。这时候由于多个用户所需要的环境变量配置不完全不同，经常发生多个用户一起往账号配置文件（如 <code>~/.bashrc</code> 或 <code>~/.bash_profile</code> 中）写很多配置，导致冲突。一人更改，影响大家。</p>
+<h2 id="解决方法"><a href="#解决方法" class="headerlink" title="解决方法"></a>解决方法</h2><p>推荐，在系统账号的配置文件中，不要添加信息，而是再登陆后，自己加载自己写的配置文件。</p>
+<p>比如，我们在根目录下一个文件 <code>~/.bashrc_zhenggang</code> （名字自己起）。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">touch ~/.bashrc_zhenggang</span><br></pre></td></tr></table></figure>
+
+<p>里面写入自己想要的配置信息，比如：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"><span class="built_in">export</span> PATH=<span class="variable">$HOME</span>/zhenggang/bin:<span class="variable">$PATH</span></span><br></pre></td></tr></table></figure>
+
+<p>然后每次登陆后，可以手动加载这个配置文件，命令为：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">source</span> ~/.bashrc_zhenggang</span><br></pre></td></tr></table></figure>
+
+<p>多个用户使用时，可以每个加载自己的配置。</p>
+<p>至此，问题得到解决，但是还不够完美。</p>
+<h2 id="进一步解决"><a href="#进一步解决" class="headerlink" title="进一步解决"></a>进一步解决</h2><p>上面遗留一个问题，就是：每次需要 <strong>手动</strong> 加载，麻烦！</p>
+<p>有没有一种方式，可以登陆后自动加载呢？有的。</p>
+<h3 id="mobaxterm"><a href="#mobaxterm" class="headerlink" title="mobaxterm"></a>mobaxterm</h3><p>比如，我们使用 <code>mobaxterm</code> 软件作为我们的 <code>SSH</code> 工具，可以进行如下配置：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/mrzhenggang/CDN@master/img/ssh-multi-users-setting/mobaxterm-ssh.png"></p>
+<p>依次选择： 菜单栏- <code>Sessions</code> - <code>New Session</code> - <code>SSH</code> ，新建一个 <code>SSH</code> 链接。</p>
+<p>然后进行如下配置：</p>
+<ol>
+<li><code>Remote Host</code> ： 输入远程的IP地址</li>
+<li><code>Specify username</code> : 可以勾选小方块后，输入账号名</li>
+<li><code>Advanced SSH settings</code>: 选择这个选项卡，在 <code>Execute Command</code> 输入框中，输入想要的命令，例如 <code>source ~/.bashrc_zhenggang</code>，这样登陆后就会自动执行这个脚本。并且勾选 <code>Do not exit after command ends</code>，保证执行完刚才的命令后不退出。</li>
+<li><code>OK</code>： 点击 <code>OK</code> 完成创建。</li>
+</ol>
+<p>然后在左边栏中就出现了一个新的 <code>Session</code> ，名为 <code>192.168.2.5(zhenggang)</code>。我们双击这个 <code>Session</code>，就会自动登陆，并执行脚本了。</p>
+<p>至此，问题得到完美解决。</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://blog.mrzhenggang.com/hexo-butterfly-local-search-permalink-ulr-error/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Mr.Zhenggang's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/hexo-butterfly-local-search-permalink-ulr-error/" itemprop="url">hexo+butterfly+local_search+permalink 路径异常问题</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-07-03T23:50:25+08:00">
+                2021-07-03
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/web/" itemprop="url" rel="index">
+                    <span itemprop="name">web</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>对于文章的 <code>url</code> 使用了 <code>permalink</code> 参数后，使用 <code>local_search</code> 时会报错。</p>
+<p>例如搜索到的是 abc 文章，它的配置为：</p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">title: abc</span><br><span class="line">permalink: &quot;/abc/&quot;</span><br></pre></td></tr></table></figure>
+
+<p>网站的路径为： <code>http://localhost:4000</code></p>
+<p>在尝试点击搜索结果进行跳转时，期待的路径为：<code>http://localhost:4000/abc</code> , 但是实际路径为 <code>http:/abc</code> 。</p>
+<p>经过尝试暂未直接通过配置解决，目前的解决方式是，修改js文件，手动加上相关路径，例如：</p>
+<p>在 <code>themes\butterfly\source\js\search\local-search.js</code> 文件中，大约 <code>126</code> 行左右，原来为：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">str += <span class="string">&#x27;&lt;div class=&quot;local-search__hit-item&quot;&gt;&lt;a href=&quot;&#x27;</span> + dataUrl + <span class="string">&#x27;&quot; class=&quot;search-result-title&quot;&gt;&#x27;</span> + dataTitle + <span class="string">&#x27;&lt;/a&gt;&#x27;</span></span><br><span class="line">count += <span class="number">1</span></span><br></pre></td></tr></table></figure>
+
+<p>修改后为：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> newdataUrl = data.url.slice(<span class="number">2</span>, data.url.length) </span><br><span class="line">str += <span class="string">&#x27;&lt;div class=&quot;local-search__hit-item&quot;&gt;&lt;a href=&quot;https://blog.mrzhenggang.com/&#x27;</span> + newdataUrl + <span class="string">&#x27;&quot; class=&quot;search-result-title&quot;&gt;&#x27;</span> + dataTitle + <span class="string">&#x27;&lt;/a&gt;&#x27;</span></span><br><span class="line">count += <span class="number">1</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>其中， <code>https://blog.mrzhenggang.com/</code> 是当前网站的根路径</p>
+</blockquote>
+<p>暂时通过这种笨拙的方式，解决了搜索路径的问题。</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://blog.mrzhenggang.com/qingsuo/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Mr.Zhenggang's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/qingsuo/" itemprop="url">青索客户端</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-06-29T00:06:25+08:00">
+                2021-06-29
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E9%9D%92%E7%B4%A2/" itemprop="url" rel="index">
+                    <span itemprop="name">青索</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="青索简介"><a href="#青索简介" class="headerlink" title="青索简介"></a>青索简介</h2><p>青索开发的初衷是解决超算使用软件栈的散落，提供安全便捷免费的超算使用方式。</p>
+<p>青索实现了 <code>SSH</code> 、<code>SFTP</code> 、<code>VPN</code>三大件的集成，并且具备一下功能，看看有没有解决你的痛点吧:</p>
+<ul>
+<li>一键使用配置</li>
+<li>VPN常驻</li>
+<li>数据断点续传</li>
+<li>机器智能匹配</li>
+<li>多账户登录</li>
+<li>第三方应用集成</li>
+<li>复杂启动脚本定制</li>
+<li>资源实时查询</li>
+<li>输入<code>我要</code> 会有意外惊喜哦</li>
+<li>一键修改登陆密码</li>
+<li>更多功能…</li>
+</ul>
+<p>目前来看，它可能是国内集成度最高的超算登录工具，欢迎大家使用。</p>
+<h2 id="开始"><a href="#开始" class="headerlink" title="开始"></a>开始</h2><h2 id="下载与安装"><a href="#下载与安装" class="headerlink" title="下载与安装"></a>下载与安装</h2><p>请下载 <a target="_blank" rel="noopener" href="https://nscc-tj.cn/file/%E9%9D%92%E7%B4%A2%E5%AE%89%E8%A3%85%E4%B8%8E%E5%85%A5%E9%97%A8%E6%89%8B%E5%86%8C.pdf">青索安装与入门手册.pdf</a> , 按照文档说明下载配置青索客户端即可。</p>
+<h3 id="界面"><a href="#界面" class="headerlink" title="界面"></a>界面</h3><p>青索基本界面如下：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/mrzhenggang/CDN@master/img/qingsuo/qingsuo-view.png" alt="青索客户端登陆首页"></p>
+<h3 id="帮助"><a href="#帮助" class="headerlink" title="帮助"></a>帮助</h3><ol>
+<li>关于青索客户端的帮助，可以点击最下方的 <code>帮助</code> ，也可以进一步查看详细手册。</li>
+</ol>
+<p><img src="https://cdn.jsdelivr.net/gh/mrzhenggang/CDN@master/img/qingsuo/qingsuo-help.png" alt="青索客户端登陆首页"></p>
+<ol start="2">
+<li>关于超算使用的帮助， 直接<code>在搜索框输入</code>即可</li>
+<li>更多技术支持，可以加入QQ群：<code>138648480</code></li>
+</ol>
+<p><img src="https://cdn.jsdelivr.net/gh/mrzhenggang/CDN@master/img/qingsuo/qingsuo-qq.png" alt="青索客户端QQ群"></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://blog.mrzhenggang.com/python-proxy/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Mr.Zhenggang's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/python-proxy/" itemprop="url">使用代理配置天河系统python环境</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-06-27T00:06:25+08:00">
+                2021-06-27
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/python/" itemprop="url" rel="index">
+                    <span itemprop="name">python</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="目的"><a href="#目的" class="headerlink" title="目的"></a>目的</h2><p>实现根据自己的需求，在天河系统上自由配置 python环境。不在需要手动下载各种依赖包了。</p>
+<h2 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h2><ol>
+<li>加载 <code>proxy</code> 代理工具，用于开通下载权限</li>
+<li>加载或安装一个 <code>python</code> 环境</li>
+<li>建议创建一个虚拟环境</li>
+<li>依据自己的需求安装各种包</li>
+</ol>
+<h2 id="最简单实践"><a href="#最简单实践" class="headerlink" title="最简单实践"></a>最简单实践</h2><p>用户如果会在自己本地安装包，那么在天河系统上，只需要 <code>module add proxy</code> 就可以下载各种包进行安装了。</p>
+<p>例如：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">module add proxy</span><br><span class="line">module av python  <span class="comment"># 可以看到多个python环境，选择一个加载</span></span><br><span class="line">module add python/3.7_anaconda <span class="comment"># 例如加载3.7的</span></span><br><span class="line">pip install numpy --user  <span class="comment"># 在 ~/.local 下面安装所需的扩展包</span></span><br><span class="line">python <span class="comment"># 执行python, 开启交互</span></span><br><span class="line">import numpy <span class="comment"># 导入numpy, 不报错就成功了</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>但是，建议用户根据下面的方法，配置国内源，创建虚拟环境，这样更方便环境的维护，具体方法见下。</p>
+</blockquote>
+<h2 id="完整实践"><a href="#完整实践" class="headerlink" title="完整实践"></a>完整实践</h2><h3 id="配置代理"><a href="#配置代理" class="headerlink" title="配置代理"></a>配置代理</h3><h4 id="开启下载代理"><a href="#开启下载代理" class="headerlink" title="开启下载代理"></a><strong>开启下载代理</strong></h4><p>我们配置了一些常用网站的代理，通过加载代理，可以直接从登陆节点下载相关源，例如python的pip源、conda源等，加载方式为：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">module add proxy </span><br></pre></td></tr></table></figure>
+
+<h4 id="替换国内源"><a href="#替换国内源" class="headerlink" title="替换国内源"></a><strong>替换国内源</strong></h4><p>默认的pip源是国外的，我们编写了自动配置国内源的脚本，使用方法是执行如下脚本，然后选择一个源（建议豆瓣），然后确认即可。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">../../software/env/pip.conf/copy-pip.conf.sh</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>按照提示输入<code>yes</code>，然后选择数字 <code>1</code> （豆瓣源），即可配置成功。</p>
+</blockquote>
+<h3 id="配置python"><a href="#配置python" class="headerlink" title="配置python"></a>配置python</h3><h4 id="方法1：加载系统上的python环境"><a href="#方法1：加载系统上的python环境" class="headerlink" title="方法1：加载系统上的python环境"></a>方法1：加载系统上的python环境</h4><p>用户可以通过执行 <code>module av python</code> 命令，查看到当前系统环境中已经安装的 <code>python</code> 环境，例如：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">module av python</span><br></pre></td></tr></table></figure>
+
+<p>执行后会显示出系统上配置好的python环境，例如：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">python/2.7_anaconda		python/3.6_anaconda		python/3.7_anaconda		</span><br><span class="line">python/3.8_anaconda		python/3.9_anaconda     ....</span><br></pre></td></tr></table></figure>
+
+<p>然后选择其中一个版本进行加载，例如：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">module add python/3.8_anaconda</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>请根据执行命令后的实际模块名加载即可，不同集群可能有所不同。</p>
+</blockquote>
+<h4 id="方法2：自行安装-anaconda-或-miniconda"><a href="#方法2：自行安装-anaconda-或-miniconda" class="headerlink" title="方法2：自行安装 anaconda 或 miniconda"></a>方法2：自行安装 anaconda 或 miniconda</h4><p>用户也可以自行前往 <code>anaconda</code> 官网或 <code>miniconda</code> 官网下载相关包，上传到系统上，加载可执行权限，然后安装，安装时可以选择安装目录，在此不再赘言。</p>
+<p>自行安装的python环境，用户就拥有了自主权，可以在python的安装目录下安装各种包。但是，还是建议根据使用需求，创建虚拟环境进行使用。</p>
+<blockquote>
+<p>建议使用miniconda包，<a target="_blank" rel="noopener" href="https://repo.continuum.io/miniconda/">https://repo.continuum.io/miniconda/</a></p>
+</blockquote>
+<h3 id="配置virtualenv"><a href="#配置virtualenv" class="headerlink" title="配置virtualenv"></a>配置virtualenv</h3><p>常用的虚拟环境例，可以使用例如 <code>virtualenv myenv </code> 创建，或者 <code>conda create -n myenv</code> 创建。此处我们以第一种举例子。</p>
+<p>先尝试查找 <code>virtualenv</code>命令：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">which</span> virtualenv</span><br></pre></td></tr></table></figure>
+
+<p>如果找到了，则跳过这一步；如果没找到这个命令，可以尝试自行安装。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip install virtualenv</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>如果是加载系统上的python环境，当出现没有安装权限的时候，可以增加一个参数，命令编程：<br><code>pip install virtualenv --user</code></p>
+</blockquote>
+<h3 id="创建虚拟环境"><a href="#创建虚拟环境" class="headerlink" title="创建虚拟环境"></a>创建虚拟环境</h3><p>有了 <code>virtualenv</code> 命令，我们就可以使用它来创建虚拟环境了，我们先试试哈：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 前往一个目录, 例如根目录</span></span><br><span class="line"><span class="built_in">cd</span> ~</span><br><span class="line"><span class="comment"># 创建一个叫 myenv 的环境 ( 名字自己定哈 )</span></span><br><span class="line">virtualenv myenv</span><br><span class="line"><span class="comment"># 激活这个环境</span></span><br><span class="line"><span class="built_in">source</span> ./myenv/bin/activate</span><br></pre></td></tr></table></figure>
+
+<p>这时候你的命令行终端就会变成类似这样子：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(myenv) [zhenggang@ln1%tianhe ~]$</span><br></pre></td></tr></table></figure>
+
+<p>这就说明我们进入了这个虚拟环境。</p>
+<h3 id="安装扩展包"><a href="#安装扩展包" class="headerlink" title="安装扩展包"></a>安装扩展包</h3><p>这时候就可以根据自己的需要，安装各种所需的扩展包了，例如我们安装 <code>numpy</code>，那么就执行：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip install numpy</span><br></pre></td></tr></table></figure>
+
+<p>由于我们开启了 <code>proxy</code> 代理，并且把 python 的源替换成国内的了，因此速度会很快。</p>
+<p>安装完成后，执行 <code>python</code> 命令，导入 <code>numpy</code> 包，如果不报错就说明安装成功了，例如：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">(myenv) [zhenggang@ln1%tianhe ~]$ python</span><br><span class="line">Python 3.7.0 (default, Jun 28 2018, 13:15:42)</span><br><span class="line">[GCC 7.2.0] :: Anaconda, Inc. on linux</span><br><span class="line">Type &quot;help&quot;, &quot;copyright&quot;, &quot;credits&quot; or &quot;license&quot; for more information.</span><br><span class="line">&gt;&gt;&gt; improt numpy</span><br><span class="line">&gt;&gt;&gt; </span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>用户可以依据自己的需要，安装各种扩展包了，不再举例了哈。</p>
+</blockquote>
+<h3 id="退出环境"><a href="#退出环境" class="headerlink" title="退出环境"></a>退出环境</h3><p>退出虚拟环境的命令是： </p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">deactivate</span><br></pre></td></tr></table></figure>
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://blog.mrzhenggang.com/github-faster-by-hosts/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Mr.Zhenggang's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/github-faster-by-hosts/" itemprop="url">加速github访问速度的方法</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-06-24T00:06:25+08:00">
+                2021-06-24
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E4%BB%A3%E7%A0%81%E5%BA%93/" itemprop="url" rel="index">
+                    <span itemprop="name">代码库</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="目的"><a href="#目的" class="headerlink" title="目的"></a>目的</h2><p>加速github的访问速度</p>
+<h2 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h2><h3 id="获得IP"><a href="#获得IP" class="headerlink" title="获得IP"></a>获得IP</h3><p>直接访问 <a target="_blank" rel="noopener" href="http://tool.chinaz.com/dns/?type=1&amp;host=github.com">http://tool.chinaz.com/dns/?type=1&amp;host=github.com</a> 点击检测，获得下表中 <code>TTL</code> 值最低的 响应<code>IP</code> 的IP值，例如：<code>52.74.223.119</code></p>
+<blockquote>
+<p>这个值会变化的，请自行获取！</p>
+</blockquote>
+<h3 id="修改hosts"><a href="#修改hosts" class="headerlink" title="修改hosts"></a>修改hosts</h3><p>打开 <code>C:\Windows\System32\drivers\etc</code> 目录下的 <code>hosts</code> 文件，添加一条记录如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">52.69.186.44 github.com</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="刷新DNS"><a href="#刷新DNS" class="headerlink" title="刷新DNS"></a>刷新DNS</h3><p>按快捷键 <code>ctrl+r</code> ，然后输入 <code>cmd</code> 命令，再敲击回车键，会弹出命令行窗口。</p>
+<p>输入如下命令刷新DNS：</p>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">ipconfig</span> /flushdns</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="重新访问"><a href="#重新访问" class="headerlink" title="重新访问"></a>重新访问</h3><p>通过浏览器访问 <code>github.com</code> 即可。</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://blog.mrzhenggang.com/beast-install-windows/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Mr.Zhenggang's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/beast-install-windows/" itemprop="url">BEAST安装使用教程（Windows版）</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-04-28T08:00:00+08:00">
+                2020-04-28
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%BA%94%E7%94%A8%E8%BD%AF%E4%BB%B6/" itemprop="url" rel="index">
+                    <span itemprop="name">应用软件</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>BEAST 2是用于分子序列的贝叶斯系统发生分析的跨平台程序。它使用严格或宽松的分子时钟模型来估计有根的，经过时间测量的系统发育。</p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/beast-install-windows/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://blog.mrzhenggang.com/vpn-login-linux64/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Mr.Zhenggang's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/vpn-login-linux64/" itemprop="url">如何使用linux64位系统登录天河VPN</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-04-22T08:00:00+08:00">
+                2020-04-22
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/VPN/" itemprop="url" rel="index">
+                    <span itemprop="name">VPN</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="安装运行-VPN-所需的-32-位库"><a href="#安装运行-VPN-所需的-32-位库" class="headerlink" title="安装运行 VPN 所需的 32 位库"></a>安装运行 VPN 所需的 32 位库</h2><h3 id="安装32位库的命令"><a href="#安装32位库的命令" class="headerlink" title="安装32位库的命令"></a>安装32位库的命令</h3><p>安装运行 VPN 所需的 32 位库，不同操作系统对应的命令有所不同，具体如下（需要切换为 root 权限）</p>
+<h4 id="CentOS-7-和-Redhat-7"><a href="#CentOS-7-和-Redhat-7" class="headerlink" title="CentOS 7 和 Redhat 7"></a>CentOS 7 和 Redhat 7</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">yum install glibc.i686</span><br><span class="line">yum install libstdc++-4.8.5-4.el7.i686</span><br></pre></td></tr></table></figure>
+
+<h4 id="Fedora-22-workstation"><a href="#Fedora-22-workstation" class="headerlink" title="Fedora 22 workstation"></a>Fedora 22 workstation</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">yum install glibc.i686</span><br><span class="line">yum install libstdc++-4.8.5-4.el7.i686</span><br><span class="line">yum install libstdc++.so.6</span><br></pre></td></tr></table></figure>
+
+<h4 id="Ubuntu-16-和-Debian-8"><a href="#Ubuntu-16-和-Debian-8" class="headerlink" title="Ubuntu 16 和 Debian 8"></a>Ubuntu 16 和 Debian 8</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">apt-get install lib32stdc++6</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="ubuntu16-04系统安装VPN所需的32位库"><a href="#ubuntu16-04系统安装VPN所需的32位库" class="headerlink" title="ubuntu16.04系统安装VPN所需的32位库"></a>ubuntu16.04系统安装VPN所需的32位库</h3><center><video src="https://cdn.jsdelivr.net/gh/mrzhenggang/CDN@master/img/vpn-login-linux64/install-lib.mp4" controls="controls" width="85%">
+您的浏览器不支持 video 标签。
+</video></center>
+
+
+
+<h2 id="安装VPN脚本"><a href="#安装VPN脚本" class="headerlink" title="安装VPN脚本"></a>安装VPN脚本</h2><h3 id="安装VPN脚本命令"><a href="#安装VPN脚本命令" class="headerlink" title="安装VPN脚本命令"></a>安装VPN脚本命令</h3><p>用户联系天河的技术支持专员获取install_vpn_linux_x86.sh脚本，并自行拷贝到本地所使用的Linux系统中。然后执行如下安装命令即可（需要切换为 root 权限）</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">chmod +x install_vpn_linux_x86.sh</span><br><span class="line">./install_vpn_linux_x86.sh</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="ubuntu16-04系统安装VPN脚本"><a href="#ubuntu16-04系统安装VPN脚本" class="headerlink" title="ubuntu16.04系统安装VPN脚本"></a>ubuntu16.04系统安装VPN脚本</h3><center><video src="https://cdn.jsdelivr.net/gh/mrzhenggang/CDN@master/img/vpn-login-linux64/install-script.mp4" controls="controls"  width="85%">
+您的浏览器不支持 video 标签。
+</video></center>
+
+
+
+<h2 id="登陆VPN"><a href="#登陆VPN" class="headerlink" title="登陆VPN"></a>登陆VPN</h2><h3 id="svpnc登陆VPN命令"><a href="#svpnc登陆VPN命令" class="headerlink" title="svpnc登陆VPN命令"></a>svpnc登陆VPN命令</h3><p>安装完成后，我们就可以使用 svpnc 命令进行VPN登陆相关操作了。（使用普通用户登陆即可）</p>
+<p>（1）设置 vpn 地址 <code>svpnc -h thvpn.nscc-tj.cn:443</code></p>
+<p>（2）设置用户名密码 <code>svpnc -u your_username:your_ssh_password</code> 或 <code>svpnc -U</code> 交互输入</p>
+<p>（3）登陆 vpn <code>svpnc -i</code></p>
+<p>（4）查询 vpn 运行状态 <code>svpnc -s</code></p>
+<p>（5）注销 vpn <code>svpnc -o</code></p>
+<p>（6）退出 vpn <code>svpnc -q</code></p>
+<blockquote>
+<p>备注：1.可以使用 svpnc -U 进行交互式配置用户名密码，先输入用户名，然后输入密码即可；2. 使用-q 退出 VPN 后下次登录需要再重新配置。</p>
+</blockquote>
+<h3 id="ubuntu16-04系统使用svpnc登陆VPN"><a href="#ubuntu16-04系统使用svpnc登陆VPN" class="headerlink" title="ubuntu16.04系统使用svpnc登陆VPN"></a>ubuntu16.04系统使用svpnc登陆VPN</h3><center><video src="https://cdn.jsdelivr.net/gh/mrzhenggang/CDN@master/img/vpn-login-linux64/svpnc-login.mp4" controls="controls"  width="85%">
+您的浏览器不支持 video 标签。
+</video></center>
+
+
+
+<h2 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h2><p><img src="https://cdn.jsdelivr.net/gh/mrzhenggang/CDN@master/img/vpn-login-linux64/vpn-login-linux64-p2.png" alt="如何使用linux64位系统登录天河VPN"></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://blog.mrzhenggang.com/set-environment-variables/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Mr.Zhenggang's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/set-environment-variables/" itemprop="url">如何设置环境变量</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-04-21T08:00:00+08:00">
+                2020-04-21
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F/" itemprop="url" rel="index">
+                    <span itemprop="name">环境变量</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="什么是环境变量？"><a href="#什么是环境变量？" class="headerlink" title="什么是环境变量？"></a>什么是环境变量？</h2><ul>
+<li>变量是计算机系统用于保存可变值的数据类型，我们可以直接通过变量名称来提取到对应的变量值。</li>
+<li>在 Linux 系统中，环境变量是用来定义系统运行环境的一些参数，比如每个用户不同的家目录（HOME）、可执行程序搜索路径（PATH）等。</li>
+<li>值得一提的是，Linux 系统中环境变量的名称一般都是大写的，这是一种约定俗成的规范。</li>
+</ul>
+<h2 id="如何显示系统的环境变量？"><a href="#如何显示系统的环境变量？" class="headerlink" title="如何显示系统的环境变量？"></a>如何显示系统的环境变量？</h2><ul>
+<li>我们可以使用 <code>env</code> 命令来查看到 Linux 系统中所有的环境变量</li>
+</ul>
+<center><video src="https://cdn.jsdelivr.net/gh/mrzhenggang/CDN@master/img/set-environment-variables/env.mp4" controls="controls" width="85%">
+您的浏览器不支持 video 标签。
+</video></center>
+
+
+<ul>
+<li>我们可以使用 echo $变量名 来显示指定环境变量，例如<code>echo $PATH</code></li>
+</ul>
+<center><video src="https://cdn.jsdelivr.net/gh/mrzhenggang/CDN@master/img/set-environment-variables/echo.mp4" controls="controls" width="85%">
+您的浏览器不支持 video 标签。
+</video></center>
+
+<h2 id="常见系统环境变量有哪些？"><a href="#常见系统环境变量有哪些？" class="headerlink" title="常见系统环境变量有哪些？"></a>常见系统环境变量有哪些？</h2><table>
+<thead>
+<tr>
+<th><strong>环境变量名称</strong></th>
+<th><strong>作用</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>PATH</td>
+<td>定义命令行解释器搜索用户执行命令的路径</td>
+</tr>
+<tr>
+<td>LD_LIBRARY_PATH</td>
+<td>定义命令行解释器搜索用户执行命令所链接的动态库搜索路径</td>
+</tr>
+<tr>
+<td>HOME</td>
+<td>用户的主目录（也称家目录）</td>
+</tr>
+<tr>
+<td>C_INCLUDE_PATH</td>
+<td>编译程序使C语言头文件的搜索路径</td>
+</tr>
+<tr>
+<td>CXX_INCLUDE_PATH</td>
+<td>编译程序时C++语言头文件的搜索路径</td>
+</tr>
+</tbody></table>
+<h2 id="如何修改系统环境变量？"><a href="#如何修改系统环境变量？" class="headerlink" title="如何修改系统环境变量？"></a>如何修改系统环境变量？</h2><h3 id="使用export命令设置环境变量"><a href="#使用export命令设置环境变量" class="headerlink" title="使用export命令设置环境变量"></a>使用export命令设置环境变量</h3><ul>
+<li>在 shell 中执行程序时，shell 会提供一组环境变量。</li>
+<li><code>export</code>命令 可新增，修改或删除环境变量，供后续执行的程序使用。</li>
+</ul>
+<h3 id="在shell终端设置环境变量"><a href="#在shell终端设置环境变量" class="headerlink" title="在shell终端设置环境变量"></a>在shell终端设置环境变量</h3><ul>
+<li><p>直接在shell终端运行 export 命令设置变量，只对当前shell临时有效。打开新的shell需要重新设置。</p>
+</li>
+<li><p>在shell的命令行下使用export命令设置环境变量的方法为： <code>export 变量名=变量值</code></p>
+</li>
+<li><p>我们可以使用 <code>$</code> 符引用变量本身，进而实现环境变量内容的增加，例如：<code>export 变量名=$变量名:变量值</code></p>
+</li>
+<li><p>增加可执行程序搜索路径</p>
+</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">export</span> PATH=/path/to/newprogram/bin:<span class="variable">$PATH</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>增加动态链接库搜索路径</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">export</span> LD_LIBRARY_PATH=/path/to/newprogram/lib:<span class="variable">$LD_LIBRARY_PATH</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>注意：请将<code>/path/to/newprogram/bin</code>部分替换为实际可执行程序所在路径，请将<code>/path/to/newprogram/lib</code>部分替换为动态链接库(.so文件)所在路径</p>
+</blockquote>
+<center><video src="https://cdn.jsdelivr.net/gh/mrzhenggang/CDN@master/img/set-environment-variables/changeshell.mp4" controls="controls" width="85%">
+您的浏览器不支持 video 标签。
+</video></center>
+
+
+
+
+
+<h3 id="在-bashrc文件中设置环境变量"><a href="#在-bashrc文件中设置环境变量" class="headerlink" title="在~/.bashrc文件中设置环境变量"></a>在~/.bashrc文件中设置环境变量</h3><ul>
+<li><code>~/.bashrc</code>文件包含专用于你的bash shell的bash信息,当登录时以及每次打开新的shell时，该该文件被读取。</li>
+<li>修改该文件后，可以执行 <code>source ~/.bashrc</code>命令让修改即可生效。或者重新ssh连接到系统，刚才的修改会在用户登录时自动生效。</li>
+</ul>
+<center><video src="https://cdn.jsdelivr.net/gh/mrzhenggang/CDN@master/img/set-environment-variables/changebashrc.mp4" controls="controls" width="85%">
+您的浏览器不支持 video 标签。
+</video></center>
+
+
+
+
+
+<h2 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h2><ol>
+<li>什么是环境变量？定义系统运行环境的一些参数</li>
+<li>如何显示系统的环境变量？执行env显示全部，或执行echo $变量名</li>
+<li>常见系统环境变量有哪些？最常见就是 PATH（可执行程序搜索路径）和LD_LIBRARY_PATH（动态链接库搜索路径）</li>
+<li>如何修改系统环境变量？</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">export</span> PATH=新的路径:<span class="variable">$PATH</span></span><br><span class="line"><span class="built_in">export</span> LD_LIBRARY_PATH=新的路径:<span class="variable">$PATH</span></span><br></pre></td></tr></table></figure>
+
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://blog.mrzhenggang.com/keep-alive/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Mr.Zhenggang's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/keep-alive/" itemprop="url">如何保持VPN永久在线和SSH连接活跃</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-04-19T08:00:00+08:00">
+                2020-04-19
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/VPN/" itemprop="url" rel="index">
+                    <span itemprop="name">VPN</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h2 id="为什么会断线"><a href="#为什么会断线" class="headerlink" title="为什么会断线"></a>为什么会断线</h2><p>我们通过<code>EasyConnect</code>建立VPN链接，当长时间没有操作的时候，由于保护机制，VPN会自动下线。这与网页登录邮箱长时间不操作就提示重新登录的原理是一样的。</p>
+<h2 id="如何保持VPN永久在线"><a href="#如何保持VPN永久在线" class="headerlink" title="如何保持VPN永久在线"></a>如何保持VPN永久在线</h2><p>鼠标右键单击任务栏的<code>EasyConnect</code>的图标，在弹出的页面中选择<code>系统设置</code>，然后勾选<code>永久在线</code>。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/mrzhenggang/CDN@master/img/keep-alive/1.png" alt="EasyConnect永久在线"></p>
+<p>这样就不会因为长时间不操作，由于保护机制而断开连接了。</p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/keep-alive/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -385,6 +1999,10 @@
   </section>
 
   
+  <nav class="pagination">
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/">7</a><a class="extend next" rel="next" href="/page/2/">&lt;i class&#x3D;&quot;fa fa-angle-right&quot;&gt;&lt;&#x2F;i&gt;</a>
+  </nav>
+
 
 
           </div>
@@ -428,14 +2046,32 @@
               
                 <a href="/archives/%7C%7C%20archive">
               
-                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-count">62</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
             
 
             
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">23</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
 
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">63</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
             
 
           </nav>

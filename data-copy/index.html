@@ -1,0 +1,807 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="数据拷贝," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="使用步骤 用户通过快递方式将硬盘寄送给对接的支持专员 支持专员检查硬件安全后，将硬盘插入硬盘柜 系统管理将硬盘挂载到系统某数据拷贝节点，并返回一个挂载目录 支持专员将挂载目录提供给用户进行拷贝 用户拷贝完成后告知支持专员 支持专员联系系统管理员卸载硬盘，然后从硬盘柜取出硬盘寄回给用户">
+<meta property="og:type" content="article">
+<meta property="og:title" content="天河系统数据拷贝系统用户使用流程">
+<meta property="og:url" content="https://blog.mrzhenggang.com/data-copy/index.html">
+<meta property="og:site_name" content="Mr.Zhenggang&#39;s Blog">
+<meta property="og:description" content="使用步骤 用户通过快递方式将硬盘寄送给对接的支持专员 支持专员检查硬件安全后，将硬盘插入硬盘柜 系统管理将硬盘挂载到系统某数据拷贝节点，并返回一个挂载目录 支持专员将挂载目录提供给用户进行拷贝 用户拷贝完成后告知支持专员 支持专员联系系统管理员卸载硬盘，然后从硬盘柜取出硬盘寄回给用户">
+<meta property="og:locale">
+<meta property="article:published_time" content="2019-11-11T00:00:00.000Z">
+<meta property="article:modified_time" content="2021-11-04T17:07:54.063Z">
+<meta property="article:author" content="郑刚">
+<meta property="article:tag" content="数据拷贝">
+<meta name="twitter:card" content="summary">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://blog.mrzhenggang.com/data-copy/"/>
+
+
+
+
+
+  <title>天河系统数据拷贝系统用户使用流程 | Mr.Zhenggang's Blog</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Mr.Zhenggang's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">郑刚的个人博客</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://blog.mrzhenggang.com/data-copy/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Mr.Zhenggang's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">天河系统数据拷贝系统用户使用流程</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-11-11T08:00:00+08:00">
+                2019-11-11
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%95%B0%E6%8D%AE/" itemprop="url" rel="index">
+                    <span itemprop="name">数据</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="使用步骤"><a href="#使用步骤" class="headerlink" title="使用步骤"></a>使用步骤</h2><ol>
+<li>用户通过快递方式将硬盘寄送给对接的支持专员</li>
+<li>支持专员检查硬件安全后，将硬盘插入硬盘柜</li>
+<li>系统管理将硬盘挂载到系统某数据拷贝节点，并返回一个挂载目录</li>
+<li>支持专员将挂载目录提供给用户进行拷贝</li>
+<li>用户拷贝完成后告知支持专员</li>
+<li>支持专员联系系统管理员卸载硬盘，然后从硬盘柜取出硬盘寄回给用户</li>
+</ol>
+<span id="more"></span>
+
+<h2 id="拷贝方法"><a href="#拷贝方法" class="headerlink" title="拷贝方法"></a>拷贝方法</h2><h3 id="登陆到数据拷贝节点"><a href="#登陆到数据拷贝节点" class="headerlink" title="登陆到数据拷贝节点"></a>登陆到数据拷贝节点</h3><p>用户登录到支持专员提供的数据拷贝节点，确认挂载路径可用。</p>
+<ul>
+<li><p>对于 <code>TH-1A</code> 系统，我们常用的登陆节点为 <code>ln3</code> (ip 为 192.168.2.5)。先登录 <code>ln3</code> 登陆节点，然后使用 <code>ssh ns1</code> 命令，跳转到数据拷贝节点 <code>ns1</code>。</p>
+</li>
+<li><p>对于 <code>TH-HPC1/TH-HPC2</code> 系统，我们常用的登陆节点为 <code>th-hpc1-ln0</code> (ip 为 192.168.2.101) 和  <code>th-hpc2-ln0</code> (ip 为 192.168.2.103)。先登录到对应的登陆节点，然后使用 <code>ssh ns3</code> 命令，跳转到数据拷贝节点 <code>ns3</code> 。</p>
+</li>
+</ul>
+<blockquote>
+<p>以下数据拷贝方法相同，以 <code>TH-1A</code> 系统为例。</p>
+</blockquote>
+<h3 id="检查拷贝路径"><a href="#检查拷贝路径" class="headerlink" title="检查拷贝路径"></a>检查拷贝路径</h3><p>用户执行 <code>df -h</code> 可看到挂载路径。该路径只有用户有权限读写，用户可以直接用 <code>cd</code> 命令进入该路径查看自己硬盘内的数据文件，然后用 <code>cp</code> 或 <code>rsync</code> 命令进行数据的拷贝。</p>
+<p>如下，可以看到硬盘挂载路径为 <code>/mnt/zhenggang</code> 。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 登陆ln3, 切换到数据拷贝节点</span></span><br><span class="line">[zhenggang@ln3%tianhe ~]$ ssh ns1</span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看挂载目录</span></span><br><span class="line">[zhenggang@ns1%tianhe ~]$ df -h</span><br><span class="line">Filesystem                      Size  Used Avail Use% Mounted on</span><br><span class="line">/dev/sda2                       487G  375G   88G  82% /</span><br><span class="line">tmpfs                            16G   72K   16G   1% /dev/shm</span><br><span class="line">mds0-gn0@tcp1:/HOME             430T  345T   64T  85% /vol-th</span><br><span class="line">mds1-gn0@tcp1:/WORK             419T  321T   78T  81% /WORK</span><br><span class="line">mds2-gn0@tcp1:/THFS             1.4P  1.2P  165T  88% /vol6</span><br><span class="line">mds3-gn0@tcp1:/THL4             688T  583T   71T  90% /THL4</span><br><span class="line">192.103.5.21:/TH_backup         1.3P  1.1P  170T  87% /TH_backup</span><br><span class="line">192.168.2.21:/mnt/zhenggang     2.0T  1.0T  1.0T  50% /mnt/zhenggang</span><br><span class="line"></span><br><span class="line"><span class="comment"># 尝试进入硬盘挂载目录</span></span><br><span class="line">[zhenggang@ns1%tianhe ~]$ <span class="built_in">cd</span> /mnt/zhenggang</span><br><span class="line">[zhenggang@ns1%tianhe ~]$ ls</span><br></pre></td></tr></table></figure>
+
+<p>我们可以看看这个盘是否正常挂载，以及能否快到硬盘的文件。</p>
+<h3 id="进入用户共享存储目录"><a href="#进入用户共享存储目录" class="headerlink" title="进入用户共享存储目录"></a>进入用户共享存储目录</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[zhenggang@ns1%tianhe ~]$ <span class="built_in">cd</span> ~</span><br></pre></td></tr></table></figure>
+
+<p>因为如果我们使用下面介绍的 <code>rsync</code> 等命令并将log文件定向到硬盘，对硬盘压力比较高，所以建议从账号跟目录进行操作。</p>
+<h3 id="拷贝方法1：使用cp命令进行拷贝（少量数据推荐）"><a href="#拷贝方法1：使用cp命令进行拷贝（少量数据推荐）" class="headerlink" title="拷贝方法1：使用cp命令进行拷贝（少量数据推荐）"></a>拷贝方法1：使用cp命令进行拷贝（少量数据推荐）</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[zhenggang@ns1%tianhe ~]$ cp  $源路径  $目标路径</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>该命令非常常用，不在赘述。</p>
+</blockquote>
+<h3 id="拷贝方法2：使用rsync命令进行拷贝（强烈推荐）"><a href="#拷贝方法2：使用rsync命令进行拷贝（强烈推荐）" class="headerlink" title="拷贝方法2：使用rsync命令进行拷贝（强烈推荐）"></a>拷贝方法2：使用rsync命令进行拷贝（强烈推荐）</h3><p><strong>同步命令</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[zhenggang@ns1%tianhe ~]$ nohup  rsync  -avP  $源路径  $目标路径  &gt;<span class="built_in">log</span> 2&gt;log.err  &amp;</span><br></pre></td></tr></table></figure>
+
+<p>说明：</p>
+<ul>
+<li><code>nohup ... &amp;</code> : 提交到后台，这样能够提供可靠性，避免由于前端网页断开导致任务终止；</li>
+<li><code>rsync -avp</code> : 同步命令+同步参数，无需更改</li>
+<li><code>$源路径 $目标路径</code> ： 从哪里同步到哪里</li>
+<li><code>&gt;log</code> ： 将标准输出定向到名为log的文件，方便查看进度</li>
+<li><code>2&gt;log.err</code> : 将标准错误输出定向到名为log.err的文件，方便查看报错</li>
+</ul>
+<p>举例1：从我的根目录同步文件 <code>1.txt</code>到硬盘</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[zhenggang@ns1%tianhe ~]$ nohup  rsync  -avP  ~/1.txt  /mnt/zhenggang/  &gt;<span class="built_in">log</span> 2&gt;log.err  &amp;</span><br></pre></td></tr></table></figure>
+
+<p>举例2：从我的根目录同步文件夹 <code>data1</code> 到硬盘</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[zhenggang@ns1%tianhe ~]$ nohup  rsync  -avP  ~/data1  /mnt/zhenggang/  &gt;<span class="built_in">log</span> 2&gt;log.err  &amp;</span><br></pre></td></tr></table></figure>
+
+<p>举例3：从我的挂载硬盘同步文件 <code>2.txt</code> 到我的用户跟目录~/tmp</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[zhenggang@ns1%tianhe ~]$ nohup  rsync  -avP  /mnt/zhenggang/2.txt  ~/tmp/  &gt;<span class="built_in">log</span> 2&gt;log.err  &amp;</span><br></pre></td></tr></table></figure>
+
+<p>举例4：从我的挂载硬盘同步文件夹 <code>data2</code> 到我的用户跟目录~/tmp</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[zhenggang@ns1%tianhe ~]$ nohup  rsync  -avP  /mnt/zhenggang/data2  ~/tmp/  &gt;<span class="built_in">log</span> 2&gt;log.err  &amp;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>需要注意的是：如果是文件夹同步，请注意”/“的使用，可以源目录最后不加”/“ 目标目录最后加”/“</p>
+</blockquote>
+<p><strong>同步进度</strong></p>
+<p>通过查看 <code>log</code> 文件，可以看到数据拷贝的情况。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 查看当前进度</span></span><br><span class="line">[zhenggang@ns1%tianhe ~]$ tail -f <span class="built_in">log</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>同步报错</strong></p>
+<p>通过查看 <code>log.err</code> 文件，可以看到数据拷贝的报错（如无报错，此文件为空）。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 查看报错</span></span><br><span class="line">[zhenggang@ns1%tianhe ~]$ tail -f log.err</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>如果log.err里有报错信息，熟悉linux的用户应该能自己处理，不熟悉的可以反馈给技术支持专员</p>
+</blockquote>
+<p><strong>取消同步</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 1. 获得进程号</span></span><br><span class="line">[zhenggang@ns1%tianhe ~]$ ps aux | grep 自己用户名 | grep rsync </span><br><span class="line"></span><br><span class="line"><span class="comment"># 2. kill掉任务</span></span><br><span class="line">[zhenggang@ns1%tianhe ~]$ <span class="built_in">kill</span> -9 $进程号</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/%E6%95%B0%E6%8D%AE%E6%8B%B7%E8%B4%9D/" rel="tag"># 数据拷贝</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/beast-install/" rel="next" title="BEAST安装使用教程">
+                <i class="fa fa-chevron-left"></i> BEAST安装使用教程
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/user-conference-training-materials-20191115/" rel="prev" title="国家超级计算天津中心用户培训资料下载20191115">
+                国家超级计算天津中心用户培训资料下载20191115 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name"></p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/%7C%7C%20archive">
+              
+                  <span class="site-state-item-count">62</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">23</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">63</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8%E6%AD%A5%E9%AA%A4"><span class="nav-number">1.</span> <span class="nav-text">使用步骤</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8B%B7%E8%B4%9D%E6%96%B9%E6%B3%95"><span class="nav-number">2.</span> <span class="nav-text">拷贝方法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%99%BB%E9%99%86%E5%88%B0%E6%95%B0%E6%8D%AE%E6%8B%B7%E8%B4%9D%E8%8A%82%E7%82%B9"><span class="nav-number">2.1.</span> <span class="nav-text">登陆到数据拷贝节点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A3%80%E6%9F%A5%E6%8B%B7%E8%B4%9D%E8%B7%AF%E5%BE%84"><span class="nav-number">2.2.</span> <span class="nav-text">检查拷贝路径</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BF%9B%E5%85%A5%E7%94%A8%E6%88%B7%E5%85%B1%E4%BA%AB%E5%AD%98%E5%82%A8%E7%9B%AE%E5%BD%95"><span class="nav-number">2.3.</span> <span class="nav-text">进入用户共享存储目录</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8B%B7%E8%B4%9D%E6%96%B9%E6%B3%951%EF%BC%9A%E4%BD%BF%E7%94%A8cp%E5%91%BD%E4%BB%A4%E8%BF%9B%E8%A1%8C%E6%8B%B7%E8%B4%9D%EF%BC%88%E5%B0%91%E9%87%8F%E6%95%B0%E6%8D%AE%E6%8E%A8%E8%8D%90%EF%BC%89"><span class="nav-number">2.4.</span> <span class="nav-text">拷贝方法1：使用cp命令进行拷贝（少量数据推荐）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8B%B7%E8%B4%9D%E6%96%B9%E6%B3%952%EF%BC%9A%E4%BD%BF%E7%94%A8rsync%E5%91%BD%E4%BB%A4%E8%BF%9B%E8%A1%8C%E6%8B%B7%E8%B4%9D%EF%BC%88%E5%BC%BA%E7%83%88%E6%8E%A8%E8%8D%90%EF%BC%89"><span class="nav-number">2.5.</span> <span class="nav-text">拷贝方法2：使用rsync命令进行拷贝（强烈推荐）</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">郑刚</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

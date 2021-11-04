@@ -1,0 +1,1067 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="slurm," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="1. 什么是slurm ? 官方说明：  Slurm 是一个开源、容错、高可伸缩的集群管理和大型小型 Linux 集群作业调度系统。slurm不需要对操作系统内核进行修改，而是相对独立的。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="超算入门课程6 slurm作业管理系统使用教学">
+<meta property="og:url" content="https://blog.mrzhenggang.com/supercomputer-courses-slurm/index.html">
+<meta property="og:site_name" content="Mr.Zhenggang&#39;s Blog">
+<meta property="og:description" content="1. 什么是slurm ? 官方说明：  Slurm 是一个开源、容错、高可伸缩的集群管理和大型小型 Linux 集群作业调度系统。slurm不需要对操作系统内核进行修改，而是相对独立的。">
+<meta property="og:locale">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/mrzhenggang/CDN@master/img/slurm/slurm-logo.png">
+<meta property="article:published_time" content="2018-12-21T16:00:00.000Z">
+<meta property="article:modified_time" content="2021-11-04T17:07:53.960Z">
+<meta property="article:author" content="郑刚">
+<meta property="article:tag" content="slurm">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/mrzhenggang/CDN@master/img/slurm/slurm-logo.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://blog.mrzhenggang.com/supercomputer-courses-slurm/"/>
+
+
+
+
+
+  <title>超算入门课程6 slurm作业管理系统使用教学 | Mr.Zhenggang's Blog</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Mr.Zhenggang's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">郑刚的个人博客</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://blog.mrzhenggang.com/supercomputer-courses-slurm/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Mr.Zhenggang's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">超算入门课程6 slurm作业管理系统使用教学</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-22T00:00:00+08:00">
+                2018-12-22
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E8%B6%85%E7%AE%97%E5%85%A5%E9%97%A8%E8%AF%BE%E7%A8%8B/" itemprop="url" rel="index">
+                    <span itemprop="name">超算入门课程</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="1-什么是slurm"><a href="#1-什么是slurm" class="headerlink" title="1. 什么是slurm ?"></a>1. 什么是slurm ?</h2><p><img src="https://cdn.jsdelivr.net/gh/mrzhenggang/CDN@master/img/slurm/slurm-logo.png"></p>
+<p>官方说明：</p>
+<blockquote>
+<p>Slurm 是一个开源、容错、高可伸缩的集群管理和大型小型 Linux 集群作业调度系统。slurm不需要对操作系统内核进行修改，而是相对独立的。 </p>
+</blockquote>
+<span id="more"></span>
+
+<p>用户理解：</p>
+<blockquote>
+<p>超算集群不能在登陆节点计算任务，需要提交到计算节点，怎么提交呢？用作业管理系统提交。<code>slurm</code>就是其中一种。</p>
+</blockquote>
+<p>下面介绍如何使用slurm。</p>
+<h2 id="2-slurm使用初级"><a href="#2-slurm使用初级" class="headerlink" title="2. slurm使用初级"></a>2. slurm使用初级</h2><h3 id="查看可用节点-yhi"><a href="#查看可用节点-yhi" class="headerlink" title="查看可用节点 yhi"></a>查看可用节点 yhi</h3><p>查看可用计算节点信息的命令是：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ yhi</span><br><span class="line">PARTITION AVAIL  TIMELIMIT   NODES  STATE  NODELIST</span><br><span class="line">debug        up      30:00     100  drain  cn[1-100]</span><br><span class="line">debug        up      30:00     100  alloc  cn[101-200]</span><br><span class="line">debug        up      30:00     100  idle   cn[200-300]</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>上面的代码中，行首为<code>$</code>符的行是用户输入的命令，其他行为显示的结果，同下。</p>
+</blockquote>
+<p>说明：</p>
+<table>
+<thead>
+<tr>
+<th>关键词</th>
+<th>含义</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>PARTITION</td>
+<td>分区名</td>
+<td>-p 分区名来指定分区</td>
+</tr>
+<tr>
+<td>AVAIL</td>
+<td>可用状态</td>
+<td>up 可用<br/>down 不可用</td>
+</tr>
+<tr>
+<td>TIMELIMIT</td>
+<td>该分区的作业最大运行时长限制</td>
+<td>30:00 表示30分钟<br/>2-00:00:00表示2天<br/>infinite表示不限时间</td>
+</tr>
+<tr>
+<td>NODES</td>
+<td>节点的数量</td>
+<td>-N 数字 来指定节点数量</td>
+</tr>
+<tr>
+<td>STATE</td>
+<td>节点的状态</td>
+<td>drain: 排空状态，表示该类结点不再分配到其他<br/>idle: 空闲状态<br/>alloc: 被分配状态</td>
+</tr>
+</tbody></table>
+<p>通过查看系统可用资源情况，我们就知道了要将计算任务提交到那里了，比如例子中的debug计算分区。</p>
+<h3 id="提交作业"><a href="#提交作业" class="headerlink" title="提交作业"></a>提交作业</h3><p>接下来应该就是使用slurm作业管理系统进行作业提交了，常用的提交方式有2种，分别介绍如下：</p>
+<h4 id="yhrun-提交"><a href="#yhrun-提交" class="headerlink" title="yhrun 提交"></a>yhrun 提交</h4><p>在命令行终端直接执行yhrun命令进行作业提交计算：</p>
+<p>天河系统的相应命令是：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ yhrun -N 2 -n 24 -p debug executable [args...]</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p><strong>疑问：</strong><code>-N</code>与<code>-n</code>两个参数是什么关系？<br/><br><strong>解答：</strong><code>-N</code>是总节点数，<code>-n</code>是总核数。以TH-1A集群为例，一个节点有12个核。<br/><br>当 <code>N*12 &gt;= n</code>时，任务可以成功运行，并且占用了节点的全部核数，推荐使用；<br/><br>当 <code>N*12 &lt; n</code> 时，由于无法满足这种节点数和核数的组合，会提示报错如下：<code>yhbatch: error: Batch job submission failed: Requested node configuration is not available</code></p>
+</blockquote>
+<p>参数说明如下：</p>
+<table>
+<thead>
+<tr>
+<th>关键词</th>
+<th>含义</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>yhrun</td>
+<td>并行执行程序的命令</td>
+<td>类似于通用的<code>mpirun</code>命令</td>
+</tr>
+<tr>
+<td>-N</td>
+<td>总节点数</td>
+<td>-N 2 表示用2个计算节点</td>
+</tr>
+<tr>
+<td>-n</td>
+<td>总核数</td>
+<td>-n 24 表示一共用24个cpu核心，注意是总数，而不是每个节点的核数</td>
+</tr>
+<tr>
+<td>-p</td>
+<td>计算分区</td>
+<td>-p debug 表示用debug计算分区，可以用<code>yhi</code>命令查询可用分区</td>
+</tr>
+<tr>
+<td>executable</td>
+<td>可执行程序名称</td>
+<td>就是你要运行的程序的名字</td>
+</tr>
+<tr>
+<td>[args…]</td>
+<td>执行参数</td>
+<td>有的程序需要加参数，就写在后面</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p><code>yhrun</code>运行的程序，默认会将输出显示到屏幕上，而且当前终端断掉会导致任务退出，因此推荐用下面的<code>yhbatch</code>命令提交任务。</p>
+</blockquote>
+<h4 id="yhbatch提交"><a href="#yhbatch提交" class="headerlink" title="yhbatch提交"></a>yhbatch提交</h4><p>这种方式是最为推荐的方式，先编写一个脚本（别担心，很简单），然后用提交命令提交这个脚本即可。</p>
+<p><strong>1）编写脚本</strong></p>
+<p>使用文本编辑器（例如vim等），创建一个用于提交作业的脚本文件，例如名为<strong>sub.sh</strong>的文件。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ vim sub.sh</span><br></pre></td></tr></table></figure>
+
+<p>然后写入脚本内容</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line">yhrun -N 2 -n 24 -p debug executable [args...]</span><br></pre></td></tr></table></figure>
+
+<p>里面写的内容和<code>yhrun</code>提交方式的内容完全相同。</p>
+<p><strong>2）提交脚本</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ yhbatch -N 2 -n 24 -p debug sub.sh</span><br><span class="line">Submitted batch job 1454916</span><br></pre></td></tr></table></figure>
+
+<p>成功提交后，返回<code>Submitted batch job 1454916</code>，这一串数字就是该任务的<code>JOBID</code>。</p>
+<blockquote>
+<p><strong>疑问：</strong><code>yhbatch</code>和<code>yhrun</code>都指定了<code>-N -n</code>参数，哪个会起作用呢？<br/><br><strong>解答：</strong>当我们使用<code>yhbatch</code>提交一个任务时，首先会向作业管理系统申请指定分区指定节点数的计算资源（当核数与节点数不匹配时会报错，<code>yhrun</code>的部分已经解释过）<br/>当获得了计算资源后，任务脚本会在计算节点执行。<br/><br>当<code>yhrun运行需要的计算资源</code> <code>&lt;=</code> <code>yhbatch申请的计算资源</code>时，程序可以正常运行；<br/><br>当<code>yhrun运行需要的计算资源</code> <code>&gt;</code> <code>yhbatch申请的计算资源</code>时，程序就会报错退出，在<code>slurm-jobid.out</code>文件中显示类似报错;<br/></p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yhrun: error: Only allocated 1 nodes asked <span class="keyword">for</span> 2</span><br></pre></td></tr></table></figure>
+
+<p>参数说明如下：</p>
+<table>
+<thead>
+<tr>
+<th>关键词</th>
+<th>含义</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>yhbatch</td>
+<td>提交批处理脚本的命令</td>
+<td></td>
+</tr>
+<tr>
+<td>-N</td>
+<td>总节点数</td>
+<td>-N 2 表示用2个计算节点</td>
+</tr>
+<tr>
+<td>-n</td>
+<td>总核数</td>
+<td>-n 24 表示一共用24个cpu核心</td>
+</tr>
+<tr>
+<td>-p</td>
+<td>计算分区</td>
+<td>-p debug 表示用debug计算分区</td>
+</tr>
+<tr>
+<td>sub.sh</td>
+<td>提交脚本名</td>
+<td>可以依据任务不同编写其他名称的脚本文件</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>优势：使用这种方式提交的任务，会自动生成一个名为<code>slurm-jobid.out</code>的文件，其中<code>jobid</code>是slurm分配给这个任务的具体编号数字。里面会有除了程序特殊指定，或用户重定向以外的所有作业的标准输出和错误信息。当计算任务出现错误的时候，我们也是第一时间查看该文件，寻找原因。</p>
+</blockquote>
+<h3 id="查看任务状态"><a href="#查看任务状态" class="headerlink" title="查看任务状态"></a>查看任务状态</h3><p>如果我们想查看一下当前用户的作业状态，可以使用如下命令：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ yhq</span><br><span class="line">JOBID    PARTITION  NAME     USER       ST  TIME      NODES NODELIST(REASON)</span><br><span class="line">1454916  debug      sub.sh   zhenggang  R   00:05:00  2     cn[5-6]</span><br></pre></td></tr></table></figure>
+
+<p>参数说明如下：</p>
+<table>
+<thead>
+<tr>
+<th>关键词</th>
+<th>含义</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>JOBID</td>
+<td>任务编号</td>
+<td>唯一编号，方便追溯</td>
+</tr>
+<tr>
+<td>PARTITION</td>
+<td>计算分区名</td>
+<td>可用<code>yhi</code>查询</td>
+</tr>
+<tr>
+<td>NAME</td>
+<td>任务名</td>
+<td>默认以提交脚本的名称当作任务名</td>
+</tr>
+<tr>
+<td>USER</td>
+<td>用户名</td>
+<td>提交该任务的用户名</td>
+</tr>
+<tr>
+<td>ST</td>
+<td>任务状态</td>
+<td>PD排队<br/>R运行<br/>S挂起<br/>CG正在退出</td>
+</tr>
+<tr>
+<td>TIME</td>
+<td>任务运行时间</td>
+<td>例子中为5分钟</td>
+</tr>
+<tr>
+<td>NODES</td>
+<td>任务作占节点数</td>
+<td>例子中为1个</td>
+</tr>
+<tr>
+<td>NODELIST(REASON)</td>
+<td>节点列表（排队原因）</td>
+<td>如果是排队状态的任务，则会给出排队原因</td>
+</tr>
+</tbody></table>
+<p>备注常见排队原因：</p>
+<blockquote>
+<ul>
+<li>AssociationResourceLimit：关联的资源限制已满 — 账户有使用节点数限制，已经用满了</li>
+<li>Resources：当前可用资源不能满足作业需求 — 系统的可用节点资源不足</li>
+<li>Dependency：作业的依赖关系未满足 — 作业之间有依赖关系，依赖的作业没完成</li>
+<li>PartitionDown：作业所在的分区处于 down 状态 — 分区down，所以节点不可用</li>
+</ul>
+</blockquote>
+<h3 id="任务完成-取消作业"><a href="#任务完成-取消作业" class="headerlink" title="任务完成/取消作业"></a>任务完成/取消作业</h3><p>如果提交作业后，如果正常结束，那么在<code>slurm-jobid.out</code>文件中并不会有任务的报错信息。</p>
+<p>如果任务正在运行，发现需要将它取消，可以这样子：</p>
+<p>1）确定任务编号</p>
+<p>我们用<code>yhq</code>命令查看任务编号，比如为</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ yhq</span><br><span class="line">JOBID    PARTITION  NAME     USER       ST  TIME      NODES NODELIST(REASON)</span><br><span class="line">1454916  debug      sub.sh   zhenggang  R   00:15:00  2     cn[5-6]</span><br></pre></td></tr></table></figure>
+
+<p>2）取消任务</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ yhcancel 1454916</span><br></pre></td></tr></table></figure>
+
+<h2 id="2-slurm使用中级"><a href="#2-slurm使用中级" class="headerlink" title="2. slurm使用中级"></a>2. slurm使用中级</h2><p>用户常用的功能，其实大部分是<code>yhrun/yhbatch</code>的其他参数，举例如下：</p>
+<h3 id="设置线程数"><a href="#设置线程数" class="headerlink" title="设置线程数"></a>设置线程数</h3><p>默认情况下，一个MPI进程开启一个线程，当程序为多线程程序的时候，可以手动设置线程数：</p>
+<p>方法一：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">export</span> OMP_NUM_THREADS=4</span><br></pre></td></tr></table></figure>
+
+<p>通过环境变量参数设置线程数为4。</p>
+<p>方法二：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ yhrun -N 2 -n 8 -c 4 -p debug executable [args...]</span><br></pre></td></tr></table></figure>
+<p>通过<code>yhrun -c 4</code>设置线程数为4。</p>
+<h3 id="设置工作目录"><a href="#设置工作目录" class="headerlink" title="设置工作目录"></a>设置工作目录</h3><p>默认情况下，执行<code>yhbatch</code>命令的目录就是任务的默认目录。</p>
+<p>如果希望修改任务的默认目录，可以使用<code>-D</code>参数。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ yhbatch -D /path/to/new/directory -N 2 -n24 -p debug sub.sh</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>/path/to/new/directory 表示一个新的目录</p>
+</blockquote>
+<h3 id="指定节点"><a href="#指定节点" class="headerlink" title="指定节点"></a>指定节点</h3><p>我们可以用<code>-w</code>参数来指定任务使用哪些节点，可以用<code>-x</code>参数指定任务不使用哪些节点。</p>
+<p>通常使用<code>-x</code>的场景为，当任务在某个节点报错退出后，如果怀疑该节点有问题，可以先用<code>-x</code>参数过滤掉该节点，重新提交任务。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ yhbatch -w cn10 -N 2 -n24 -p debug sub.sh</span><br><span class="line">$ yhbatch -x cn11 -N 2 -n24 -p debug sub.sh</span><br></pre></td></tr></table></figure>
+
+<h3 id="指定任务名"><a href="#指定任务名" class="headerlink" title="指定任务名"></a>指定任务名</h3><p>当用户需要提交非常多的相似任务时，通常只会将提交脚本中的参数进行修改，但这样子提交的任务的任务名都相同，不好区分。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">JOBID    PARTITION  NAME     USER       ST  TIME      NODES NODELIST(REASON)</span><br><span class="line">1454916  debug      sub.sh   zhenggang  R   00:15:00  2     cn[5-6]</span><br><span class="line">1454917  debug      sub.sh   zhenggang  R   00:15:00  2     cn[7-8]</span><br><span class="line">1454918  debug      sub.sh   zhenggang  R   00:15:00  2     cn[9-10]</span><br></pre></td></tr></table></figure>
+
+<p>我们可以用<code>-J</code>参数为每一个任务指定任务名，例如：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">$ yhbatch -J job1 -N 2 -n24 -p debug sub.sh</span><br><span class="line">Submitted batch job 1454920</span><br><span class="line">$ yhbatch -J job2 -N 2 -n24 -p debug sub.sh</span><br><span class="line">Submitted batch job 1454921</span><br><span class="line">$ yhbatch -J job3 -N 2 -n24 -p debug sub.sh</span><br><span class="line">Submitted batch job 1454922</span><br><span class="line">$ yhq</span><br><span class="line">JOBID    PARTITION  NAME     USER       ST  TIME      NODES NODELIST(REASON)</span><br><span class="line">1454920  debug      job1     zhenggang  R   00:00:05  2     cn[15-16]</span><br><span class="line">1454921  debug      job2     zhenggang  R   00:00:05  2     cn[17-18]</span><br><span class="line">1454922  debug      job3     zhenggang  R   00:00:05  2     cn[19-20]</span><br></pre></td></tr></table></figure>
+
+<h3 id="任务运行时常"><a href="#任务运行时常" class="headerlink" title="任务运行时常"></a>任务运行时常</h3><p>默认情况下，任务会一直运行直到任务结束；在超算集群上，通常的计算分区都有设置最大运行时常，当超出时常后任务会自动退出，<code>slurm-jobid.out</code>文件报错类似：<code>Error: DUE TO TIME LIMIT</code></p>
+<p>用户也可以用<code>-t</code>参数设置该任务的最大运行时常，时间单位为分钟，如设置为10分钟（即为<code>-t 10</code>）：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ yhbatch -t 10 -N 2 -n 24 -p debug sub.sh</span><br></pre></td></tr></table></figure>
+
+<h2 id="3-slurm使用高级"><a href="#3-slurm使用高级" class="headerlink" title="3. slurm使用高级"></a>3. slurm使用高级</h2><h3 id="yhalloc方式使用"><a href="#yhalloc方式使用" class="headerlink" title="yhalloc方式使用"></a>yhalloc方式使用</h3><p>除了<code>yhrun</code>和<code>yhbatch</code>，还有一个命令叫做<code>yhalloc</code>，适用于调试程序。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$ yhballoc -N 2 -n 24 -pdebug</span><br><span class="line">yhalloc: Granted job allocation 1455031</span><br><span class="line"></span><br><span class="line">$ yhq</span><br><span class="line">  JOBID PARTITION     NAME     USER  ST       TIME  NODES NODELIST(REASON)</span><br><span class="line">1455031    debug      bash zhenggang  R       0:44      2 cn[31-32]</span><br></pre></td></tr></table></figure>
+
+<p>我们接下来可以：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yhrun -N 2 -n24 -pdebug executable [args...]</span><br></pre></td></tr></table></figure>
+
+<p>任务会在刚刚分配的cn[31-32]节点运行。</p>
+<p>我们也可以用<code>ssh</code>命令切换到计算节点，进行各种操作。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ ssh cn32</span><br><span class="line">Last login: Tue Dec 18 08:58:40 2018 from ln0</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>注意：用yhalloc申请的节点会在当前终端退出时释放掉，因此仅适用于高阶玩家调试用。</p>
+</blockquote>
+<h3 id="设置任务依赖"><a href="#设置任务依赖" class="headerlink" title="设置任务依赖"></a>设置任务依赖</h3><p>有时候任务1与任务2有点关系，我们希望等任务1结束后再运行任务2。</p>
+<p>如果将任务1和任务2都提交了，它们之间没人关系，会再获得计算资源后都运行，这不是我们想要的。</p>
+<p>因此，我们可以正常提交任务1，然后在提交任务2的时候，使用<code>-d jobid</code>参数设置依赖关系，让任务2等待任务1结束后再运行，即便有计算资源也等着。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">$ yhbatch -N 2 -n 24 -p debug sub1.sh</span><br><span class="line">Submitted batch job 1454946</span><br><span class="line">$ yhbatch -d 1454946 -N 2 -n 24 -p debug sub2.sh</span><br><span class="line">Submitted batch job 1454947</span><br><span class="line">$ yhq</span><br><span class="line">  JOBID PARTITION     NAME     USER ST       TIME  NODES NODELIST(REASON)</span><br><span class="line">1454947    debug   sub2.sh zhenggang PD       0:00      1 (Dependency)</span><br><span class="line">1454946    debug   sub1.sh zhenggang  R       0:37      1 cn46</span><br></pre></td></tr></table></figure>
+
+<p>我们可以看到先提交的任务<code>1454946</code>已经在<code>R</code>，后提交的任务<code>1454947</code>在<code>PD</code>，原因是<code>Dependency</code>，这意味着它将等待<code>1454946</code>任务结束后才开始运行。</p>
+<h2 id="附录"><a href="#附录" class="headerlink" title="附录"></a>附录</h2><h3 id="slurm内置环境变量"><a href="#slurm内置环境变量" class="headerlink" title="slurm内置环境变量"></a>slurm内置环境变量</h3><p>slurm有很多内置的环境变量，可以在提交脚本中使用，来显示各类信息：</p>
+<table>
+<thead>
+<tr>
+<th>内置变量</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>SLURM_NODELIST</td>
+<td>分配的节点列表</td>
+</tr>
+<tr>
+<td>SLURM_NNODES</td>
+<td>分配的任务数</td>
+</tr>
+<tr>
+<td>SLURM_NPROCS</td>
+<td>要加载的任务数</td>
+</tr>
+<tr>
+<td>SLURM_JOBID</td>
+<td>作业的 JobID</td>
+</tr>
+<tr>
+<td>SLURM_TASKS_PER_NODE</td>
+<td>每节点要加载的任务数</td>
+</tr>
+<tr>
+<td>SLURM_JOB_ID</td>
+<td>作业的 JobID</td>
+</tr>
+<tr>
+<td>SLURM_SUBMIT_DIR</td>
+<td>提交作业时的工作目录</td>
+</tr>
+<tr>
+<td>SLURM_JOB_NODELIST</td>
+<td>作业分配的节点列表</td>
+</tr>
+<tr>
+<td>SLURM_JOB_CPUS_PER_NODE</td>
+<td>每个节点上分配给作业的 CPU 数</td>
+</tr>
+<tr>
+<td>SLURM_JOB_NUM_NODES</td>
+<td>作业分配的节点数</td>
+</tr>
+</tbody></table>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/slurm/" rel="tag"># slurm</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/supercomputer-courses-vim/" rel="next" title="超算入门课程5 文本编辑器vim的使用教学">
+                <i class="fa fa-chevron-left"></i> 超算入门课程5 文本编辑器vim的使用教学
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/supercomputer-courses-module/" rel="prev" title="超算入门课程4 module命令使用教学">
+                超算入门课程4 module命令使用教学 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name"></p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/%7C%7C%20archive">
+              
+                  <span class="site-state-item-count">62</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">23</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">63</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-%E4%BB%80%E4%B9%88%E6%98%AFslurm"><span class="nav-number">1.</span> <span class="nav-text">1. 什么是slurm ?</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-slurm%E4%BD%BF%E7%94%A8%E5%88%9D%E7%BA%A7"><span class="nav-number">2.</span> <span class="nav-text">2. slurm使用初级</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9F%A5%E7%9C%8B%E5%8F%AF%E7%94%A8%E8%8A%82%E7%82%B9-yhi"><span class="nav-number">2.1.</span> <span class="nav-text">查看可用节点 yhi</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8F%90%E4%BA%A4%E4%BD%9C%E4%B8%9A"><span class="nav-number">2.2.</span> <span class="nav-text">提交作业</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#yhrun-%E6%8F%90%E4%BA%A4"><span class="nav-number">2.2.1.</span> <span class="nav-text">yhrun 提交</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#yhbatch%E6%8F%90%E4%BA%A4"><span class="nav-number">2.2.2.</span> <span class="nav-text">yhbatch提交</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9F%A5%E7%9C%8B%E4%BB%BB%E5%8A%A1%E7%8A%B6%E6%80%81"><span class="nav-number">2.3.</span> <span class="nav-text">查看任务状态</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%BB%E5%8A%A1%E5%AE%8C%E6%88%90-%E5%8F%96%E6%B6%88%E4%BD%9C%E4%B8%9A"><span class="nav-number">2.4.</span> <span class="nav-text">任务完成&#x2F;取消作业</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-slurm%E4%BD%BF%E7%94%A8%E4%B8%AD%E7%BA%A7"><span class="nav-number">3.</span> <span class="nav-text">2. slurm使用中级</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AE%BE%E7%BD%AE%E7%BA%BF%E7%A8%8B%E6%95%B0"><span class="nav-number">3.1.</span> <span class="nav-text">设置线程数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AE%BE%E7%BD%AE%E5%B7%A5%E4%BD%9C%E7%9B%AE%E5%BD%95"><span class="nav-number">3.2.</span> <span class="nav-text">设置工作目录</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8C%87%E5%AE%9A%E8%8A%82%E7%82%B9"><span class="nav-number">3.3.</span> <span class="nav-text">指定节点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8C%87%E5%AE%9A%E4%BB%BB%E5%8A%A1%E5%90%8D"><span class="nav-number">3.4.</span> <span class="nav-text">指定任务名</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%BB%E5%8A%A1%E8%BF%90%E8%A1%8C%E6%97%B6%E5%B8%B8"><span class="nav-number">3.5.</span> <span class="nav-text">任务运行时常</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-slurm%E4%BD%BF%E7%94%A8%E9%AB%98%E7%BA%A7"><span class="nav-number">4.</span> <span class="nav-text">3. slurm使用高级</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#yhalloc%E6%96%B9%E5%BC%8F%E4%BD%BF%E7%94%A8"><span class="nav-number">4.1.</span> <span class="nav-text">yhalloc方式使用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AE%BE%E7%BD%AE%E4%BB%BB%E5%8A%A1%E4%BE%9D%E8%B5%96"><span class="nav-number">4.2.</span> <span class="nav-text">设置任务依赖</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%99%84%E5%BD%95"><span class="nav-number">5.</span> <span class="nav-text">附录</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#slurm%E5%86%85%E7%BD%AE%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F"><span class="nav-number">5.1.</span> <span class="nav-text">slurm内置环境变量</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">郑刚</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

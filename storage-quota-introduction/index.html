@@ -1,0 +1,825 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="配额,storage,quota," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="1. 存储说明天河系统采用Lustre分布式存储文件系统，该文件系统由多个存储结点构成，对外提供一个统一的大分区，供所有登陆结点与计算结点进行挂载。 Lustre高性能存储用于用户进行计算任务的数据存储，用户在登陆系统后看到的数据存储在Lustre存储中。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="关于存储配额的说明">
+<meta property="og:url" content="https://blog.mrzhenggang.com/storage-quota-introduction/index.html">
+<meta property="og:site_name" content="Mr.Zhenggang&#39;s Blog">
+<meta property="og:description" content="1. 存储说明天河系统采用Lustre分布式存储文件系统，该文件系统由多个存储结点构成，对外提供一个统一的大分区，供所有登陆结点与计算结点进行挂载。 Lustre高性能存储用于用户进行计算任务的数据存储，用户在登陆系统后看到的数据存储在Lustre存储中。">
+<meta property="og:locale">
+<meta property="article:published_time" content="2019-01-09T00:00:00.000Z">
+<meta property="article:modified_time" content="2021-11-04T17:07:53.973Z">
+<meta property="article:author" content="郑刚">
+<meta property="article:tag" content="配额">
+<meta property="article:tag" content="storage">
+<meta property="article:tag" content="quota">
+<meta name="twitter:card" content="summary">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://blog.mrzhenggang.com/storage-quota-introduction/"/>
+
+
+
+
+
+  <title>关于存储配额的说明 | Mr.Zhenggang's Blog</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Mr.Zhenggang's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">郑刚的个人博客</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://blog.mrzhenggang.com/storage-quota-introduction/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Mr.Zhenggang's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">关于存储配额的说明</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-09T08:00:00+08:00">
+                2019-01-09
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%AD%98%E5%82%A8/" itemprop="url" rel="index">
+                    <span itemprop="name">存储</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="1-存储说明"><a href="#1-存储说明" class="headerlink" title="1. 存储说明"></a>1. 存储说明</h2><p>天河系统采用Lustre分布式存储文件系统，该文件系统由多个存储结点构成，对外提供一个统一的大分区，供所有登陆结点与计算结点进行挂载。</p>
+<p>Lustre高性能存储用于用户进行计算任务的数据存储，用户在登陆系统后看到的数据存储在Lustre存储中。</p>
+<span id="more"></span>
+
+<p>比如，用户名为 <code>zhenggang</code>，所属的文件系统为 <code>THL6</code>， 那么用户的根目录为 <code>/THL6/home/zhenggang</code> 。</p>
+<h2 id="2-存储查询"><a href="#2-存储查询" class="headerlink" title="2. 存储查询"></a>2. 存储查询</h2><h3 id="2-1-登陆系统时可以显示"><a href="#2-1-登陆系统时可以显示" class="headerlink" title="2.1 登陆系统时可以显示"></a>2.1 登陆系统时可以显示</h3><p>登陆系统后，通常就会显示该用户所属group（即用户组）的存储情况：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Disk quotas <span class="keyword">for</span> group zhenggang (gid 5005):</span><br><span class="line">     Filesystem    used    quota  <span class="built_in">limit</span>   grace    files      quota   <span class="built_in">limit</span>   grace</span><br><span class="line">          /THL6    123G     500G    1T       -       123   1000000  2000000       -</span><br></pre></td></tr></table></figure>
+
+<center>表1 磁盘配额各关键词说明 </center>
+
+<table>
+<thead>
+<tr>
+<th>关键词</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Filesystem</td>
+<td>用户所在的共享分布式存储</td>
+</tr>
+<tr>
+<td>used</td>
+<td>用户目前已经使用的存储（单位KB）</td>
+</tr>
+<tr>
+<td>quota</td>
+<td>存储软限制（单位KB）</td>
+</tr>
+<tr>
+<td>limit</td>
+<td>存储硬限制（单位KB）</td>
+</tr>
+<tr>
+<td>grace</td>
+<td>存储状态</td>
+</tr>
+<tr>
+<td>files</td>
+<td>用户已有的文件数量（单位：个）</td>
+</tr>
+<tr>
+<td>quota</td>
+<td>文件数量软限制（单位：个）</td>
+</tr>
+<tr>
+<td>limit</td>
+<td>文件数量硬限制（单位：个）</td>
+</tr>
+<tr>
+<td>grace</td>
+<td>文件数量状态</td>
+</tr>
+</tbody></table>
+<h3 id="2-2-使用查询命令查询"><a href="#2-2-使用查询命令查询" class="headerlink" title="2.2 使用查询命令查询"></a>2.2 使用查询命令查询</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># TH-1A系统</span></span><br><span class="line">lfs quota -g `whoami` `<span class="built_in">echo</span> <span class="variable">$HOME</span>  | awk -F / <span class="string">&#x27;&#123;print &quot;/&quot;$2&#125;&#x27;</span>`  <span class="comment"># 查询用户组</span></span><br><span class="line">lfs quota -u `whoami` `<span class="built_in">echo</span> <span class="variable">$HOME</span>  | awk -F / <span class="string">&#x27;&#123;print &quot;/&quot;$2&#125;&#x27;</span>`  <span class="comment"># 查询用户</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># TH-HPC系统</span></span><br><span class="line">lfs quota -g -h `whoami` `<span class="built_in">echo</span> <span class="variable">$HOME</span>  | awk -F / <span class="string">&#x27;&#123;print &quot;/&quot;$2&#125;&#x27;</span>`  <span class="comment"># 查询用户组</span></span><br><span class="line">lfs quota -u -h `whoami` `<span class="built_in">echo</span> <span class="variable">$HOME</span>  | awk -F / <span class="string">&#x27;&#123;print &quot;/&quot;$2&#125;&#x27;</span>`  <span class="comment"># 查询用户</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="3-磁盘配额限制"><a href="#3-磁盘配额限制" class="headerlink" title="3. 磁盘配额限制"></a>3. 磁盘配额限制</h2><p>为了合理利用有限的存储资源，目前中心对用户默认进行存储软限制<code>500G</code>，存储硬限制<code>1T</code>，文件数软限制<code>100万</code>，文件数硬限制<code>200万</code>的磁盘配额限制。</p>
+<p>1）用户使用存储低于500G时，存储状态正常；</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Disk quotas <span class="keyword">for</span> group zhenggang (gid 5005):</span><br><span class="line">     Filesystem    used    quota  <span class="built_in">limit</span>   grace    files      quota   <span class="built_in">limit</span>   grace</span><br><span class="line">          /THL6    123G     500G    1T       -       123   1000000  2000000       -</span><br></pre></td></tr></table></figure>
+
+<p>2）当用户使用存储介于<code>500G</code>和<code>1T</code>之间时，used参数对应的数字带有“*”表示用户配额异常，“6d23h59m57s”表示倒计时，如果用户在倒计时结束前将使用存储清理到<code>500G</code>以下，则存储状态恢复正常。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Disk quotas <span class="keyword">for</span> group zhenggang (gid 5005):</span><br><span class="line">     Filesystem    used     quota  <span class="built_in">limit</span>          grace    files      quota   <span class="built_in">limit</span>  grace</span><br><span class="line">          /THL6    768G*     500G    1T     6d23h59m57s    12345   1000000  2000000      -</span><br></pre></td></tr></table></figure>
+
+<p>3）如果在规定时间，否则用户的数据量超出软限制且超出倒计时，则无法使用了。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Disk quotas <span class="keyword">for</span> group zhenggang (gid 5005):</span><br><span class="line">     Filesystem    used     quota  <span class="built_in">limit</span>   grace    files     quota    <span class="built_in">limit</span>  grace</span><br><span class="line">          /THL6    768G*     500G    1T     none    12345   1000000  2000000      -</span><br></pre></td></tr></table></figure>
+
+<p>4）如果用户数据在倒计时期间继续增长，超出硬限制，则用户存储将无法写入，如图3-4所示；数据操作也会受限制，如图3-5所示。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Disk quotas <span class="keyword">for</span> group zhenggang (gid 5005):</span><br><span class="line">     Filesystem    used     quota  <span class="built_in">limit</span>   grace   files     quota     <span class="built_in">limit</span>  grace</span><br><span class="line">          /THL6    1.2T*     500G    1T        -   45678   1000000  2000000       -</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>有的时候用户登录会出现错误提示“Some errors happened when getting quota info. Some devices may be not working or deactivated. The data in “[]” is inaccurate.”这是因为登陆结点quota服务没有启用，对用户本身的操作和作业不会有影响。</p>
+</blockquote>
+<hr>
+<blockquote>
+<p>小结</p>
+</blockquote>
+<blockquote>
+<ol>
+<li>存储是有配额限制的：超出软限制，开启倒计时，倒计时到期就用不了了；超出硬限制，直接就用不了了。</li>
+<li>查询配额，可以开启新终端登陆时自动显示，或通过命令查询<code>lfs quota -g -h zhenggang</code> ，请将命令中的<code>zhenggang</code>改为自己的帐户名。</li>
+<li>当配额出现<code>*</code>时，请及时清理数据。</li>
+<li>免费配额不足，可以申请购买，<a href="https://blog.mrzhenggang.com/about/">联系我们</a>。</li>
+</ol>
+</blockquote>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/%E9%85%8D%E9%A2%9D/" rel="tag"># 配额</a>
+          
+            <a href="/tags/storage/" rel="tag"># storage</a>
+          
+            <a href="/tags/quota/" rel="tag"># quota</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/supercomputer-courses-ssh-sftp-mobaxterm/" rel="next" title="超算入门课程2 ssh和sftp工具的使用之mobaxterm软件教学">
+                <i class="fa fa-chevron-left"></i> 超算入门课程2 ssh和sftp工具的使用之mobaxterm软件教学
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/slurm-change-job-calculation-order/" rel="prev" title="SLURM作业计算顺序的调整方法">
+                SLURM作业计算顺序的调整方法 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name"></p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/%7C%7C%20archive">
+              
+                  <span class="site-state-item-count">62</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">23</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">63</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-%E5%AD%98%E5%82%A8%E8%AF%B4%E6%98%8E"><span class="nav-number">1.</span> <span class="nav-text">1. 存储说明</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-%E5%AD%98%E5%82%A8%E6%9F%A5%E8%AF%A2"><span class="nav-number">2.</span> <span class="nav-text">2. 存储查询</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-%E7%99%BB%E9%99%86%E7%B3%BB%E7%BB%9F%E6%97%B6%E5%8F%AF%E4%BB%A5%E6%98%BE%E7%A4%BA"><span class="nav-number">2.1.</span> <span class="nav-text">2.1 登陆系统时可以显示</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-%E4%BD%BF%E7%94%A8%E6%9F%A5%E8%AF%A2%E5%91%BD%E4%BB%A4%E6%9F%A5%E8%AF%A2"><span class="nav-number">2.2.</span> <span class="nav-text">2.2 使用查询命令查询</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-%E7%A3%81%E7%9B%98%E9%85%8D%E9%A2%9D%E9%99%90%E5%88%B6"><span class="nav-number">3.</span> <span class="nav-text">3. 磁盘配额限制</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">郑刚</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

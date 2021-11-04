@@ -1,0 +1,1173 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="linux,command,shell," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="1. linux的简介Linux是一套免费使用和自由传播的类Unix操作系统。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="超算入门课程3 linux基本命令教学">
+<meta property="og:url" content="https://blog.mrzhenggang.com/supercomputer-courses-linux-basic-commands/index.html">
+<meta property="og:site_name" content="Mr.Zhenggang&#39;s Blog">
+<meta property="og:description" content="1. linux的简介Linux是一套免费使用和自由传播的类Unix操作系统。">
+<meta property="og:locale">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/mrzhenggang/CDN@master/img/linux/linux-logo.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/mrzhenggang/CDN@master/img/linux/linux-ubuntu-logo.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/mrzhenggang/CDN@master/img/linux/linux-terminal.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/mrzhenggang/CDN@master/img/linux/linux-chmod.png">
+<meta property="article:published_time" content="2018-12-21T16:00:00.000Z">
+<meta property="article:modified_time" content="2021-11-04T17:07:53.926Z">
+<meta property="article:author" content="郑刚">
+<meta property="article:tag" content="linux">
+<meta property="article:tag" content="command">
+<meta property="article:tag" content="shell">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/mrzhenggang/CDN@master/img/linux/linux-logo.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://blog.mrzhenggang.com/supercomputer-courses-linux-basic-commands/"/>
+
+
+
+
+
+  <title>超算入门课程3 linux基本命令教学 | Mr.Zhenggang's Blog</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Mr.Zhenggang's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">郑刚的个人博客</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://blog.mrzhenggang.com/supercomputer-courses-linux-basic-commands/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Mr.Zhenggang's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">超算入门课程3 linux基本命令教学</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-22T00:00:00+08:00">
+                2018-12-22
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E8%B6%85%E7%AE%97%E5%85%A5%E9%97%A8%E8%AF%BE%E7%A8%8B/" itemprop="url" rel="index">
+                    <span itemprop="name">超算入门课程</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><img src="https://cdn.jsdelivr.net/gh/mrzhenggang/CDN@master/img/linux/linux-logo.png"></p>
+<h2 id="1-linux的简介"><a href="#1-linux的简介" class="headerlink" title="1. linux的简介"></a>1. linux的简介</h2><p>Linux是一套免费使用和自由传播的类Unix操作系统。</p>
+<span id="more"></span>
+
+<h2 id="2-linux的图形界面和命令行"><a href="#2-linux的图形界面和命令行" class="headerlink" title="2. linux的图形界面和命令行"></a>2. linux的图形界面和命令行</h2><p>不要对linux有误解，以为它只有一个黑框框，实际上现在的常见的Linux发行版的图形界面，非常好看，例如：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/mrzhenggang/CDN@master/img/linux/linux-ubuntu-logo.png"></p>
+<p>但实际上，我们最常用的还是一个黑框框<code>Terminal</code>。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/mrzhenggang/CDN@master/img/linux/linux-terminal.png"></p>
+<h2 id="3-linux的常用命令"><a href="#3-linux的常用命令" class="headerlink" title="3. linux的常用命令"></a>3. linux的常用命令</h2><h3 id="3-1-举一个例子"><a href="#3-1-举一个例子" class="headerlink" title="3.1 举一个例子"></a>3.1 举一个例子</h3><p>在windows下，我们习惯了用窗口图形化界面的方式进行各种基本操作，比如创建一个新文件夹<code>temp</code>，我们需要：</p>
+<ol>
+<li>单击鼠标右键</li>
+<li>选择新建</li>
+<li>选择文件夹</li>
+<li>输入文件夹的名字<code>temp</code></li>
+<li>按回车键确认</li>
+</ol>
+<p>如果了解一点快捷键，可以：</p>
+<ol>
+<li>单击鼠标邮件</li>
+<li>按键盘”w”</li>
+<li>按键盘”f”</li>
+<li>输入文件夹的名字<code>temp</code></li>
+<li>按回车键确认</li>
+</ol>
+<p>再进一步，我们用快捷键，可以：</p>
+<ol>
+<li>按”ctrl+shift+n”</li>
+<li>输入文件夹的名字<code>temp</code></li>
+<li>按回车键确认</li>
+</ol>
+<p>在linux下，我们使用一行命令即可创建：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ mkdir temp</span><br></pre></td></tr></table></figure>
+
+<p>大家感受一下哪一种方式比较快？</p>
+<h3 id="3-2-常用命令"><a href="#3-2-常用命令" class="headerlink" title="3.2 常用命令"></a>3.2 常用命令</h3><center><video src="https://cdn.jsdelivr.net/gh/mrzhenggang/CDN@master/img/linux/linux-command-1080p.mp4" controls="controls" height="400" weight="700" >
+您的浏览器不支持 video 标签。
+</video></center>
+
+<p>我们下面举一个实际的例子，大家跟着做，输入带有<code>$</code>行的命令，看看会得到什么（<code>#</code>号后面的内容是注释，不需要输入）</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">$ date      <span class="comment"># 显示日期和当前时间</span></span><br><span class="line">Sun Dec 23 14:16:39 CST 2018</span><br><span class="line">$ whoami    <span class="comment"># 查询当前登录在系统中的用户信息</span></span><br><span class="line">zhenggang</span><br><span class="line">$ <span class="built_in">pwd</span>       <span class="comment"># 显示当前工作目录</span></span><br><span class="line">/home/zhenggang</span><br><span class="line">$ ls        <span class="comment"># 显示目录内容</span></span><br><span class="line">backup  Desktop  downloads  projects  PycharmProjects  software  temp  workdir</span><br><span class="line">$ mkdir temp     <span class="comment"># 创建目录</span></span><br><span class="line">$ <span class="built_in">cd</span> temp   <span class="comment"># 改变工作目录</span></span><br><span class="line">$ <span class="built_in">pwd</span></span><br><span class="line">/home/zhenggang/temp</span><br><span class="line">$ touch 1.txt    <span class="comment"># 创建内容为空的文件</span></span><br><span class="line">$ <span class="built_in">echo</span> <span class="string">&quot;hello world&quot;</span> &gt; 1.txt  <span class="comment"># 将&quot;hello world&quot;字符串显示，并定向到1.txt文件</span></span><br><span class="line">$ cat 1.txt      <span class="comment"># 用于显示文件内容</span></span><br><span class="line">hello world</span><br><span class="line">$ clear     <span class="comment"># 清屏</span></span><br><span class="line">$ grep hello 1.txt    <span class="comment"># 查找字符串：在1.txt文件中查找hello字符串，找到了就返回匹配的行</span></span><br><span class="line">hello world</span><br><span class="line">$ find * -name 1.txt  <span class="comment"># 查找文件：*表示当前目录，从当前目录递归查找名为 1.txt的文件</span></span><br><span class="line">1.txt</span><br><span class="line">$ mv 1.txt 2.txt      <span class="comment"># 文件的搬移或更名，将1.txt改名为2.txt</span></span><br><span class="line">$ ls</span><br><span class="line">2.txt</span><br><span class="line">$ cp 2.txt 3.txt      <span class="comment"># 复制文件或目录，如果拷贝的是目录，则加入&quot;-r&quot; 参数</span></span><br><span class="line">$ ls</span><br><span class="line">2.txt 3.txt</span><br><span class="line">$ <span class="built_in">cd</span> ..    <span class="comment"># 退回到上一级目录</span></span><br><span class="line">$ <span class="built_in">pwd</span></span><br><span class="line">/home/zhenggang</span><br><span class="line">$ <span class="built_in">cd</span>       <span class="comment"># 退回到用户根目录</span></span><br><span class="line">/home/zhenggang</span><br></pre></td></tr></table></figure>
+
+<h3 id="3-2-文件的权限（菜鸟版）"><a href="#3-2-文件的权限（菜鸟版）" class="headerlink" title="3.2 文件的权限（菜鸟版）"></a>3.2 文件的权限（菜鸟版）</h3><p>最常用的是修改可执行权限，举例：为<code>1.txt</code>文件增加可执行权限，使用：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ chmod +x 1.txt</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p><code>+x</code>表示增加可执行权限；<code>-x</code>表示去除可执行权限：如果是递归修改，可以增加参数<code>-R</code></p>
+</blockquote>
+<h3 id="3-2-文件的权限（进阶版）"><a href="#3-2-文件的权限（进阶版）" class="headerlink" title="3.2 文件的权限（进阶版）"></a>3.2 文件的权限（进阶版）</h3><blockquote>
+<p>Linux 一般将文件可存取的身份分为三个类别，分别是 owner/group/others，且三种身份各有read/write/execute 等权限。</p>
+</blockquote>
+<p>我们画一个示意图来介绍：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/mrzhenggang/CDN@master/img/linux/linux-chmod.png"></p>
+<ul>
+<li><p>第一个字符代表这个文件是『目录、文件或链接文件等等』</p>
+<ul>
+<li>当为[ d ]则是目录</li>
+<li>当为[ - ]则是文件</li>
+<li>若是[ l ]则表示为连结档(link file)</li>
+</ul>
+</li>
+<li><p>接下来的字符中，以三个为一组，且均为『rwx』 的三个参数的组合。其中，[ r ]代表可读(read)、[ w ]代表可写(write)、[ x ]代表可执行(execute)。 要注意的是，这三个权限的位置不会改变，如果没有权限，就会出现减号[ - ]而已。</p>
+<ul>
+<li>第一组为『文件拥有者可具备的权限』</li>
+<li>第二组为『加入此群组之账号的权限』</li>
+<li>第三组为『非本人且没有加入本群组之其他账号的权限</li>
+</ul>
+</li>
+</ul>
+<p>我们用<code>ls -al</code> 命令来查看刚才的<code>1.txt</code>文件：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ ls -al</span><br><span class="line">-rw-rw-r--  1 zhenggang zhenggang    0 Dec 23 15:40 1.txt</span><br></pre></td></tr></table></figure>
+
+<p>我们仔细观察第一列<code>-rw-rw-r--</code>，它表示<code>1.txt</code>文件的权限，因此<code>-rw-rw-r--</code> 表示：</p>
+<ul>
+<li>它是一个文件</li>
+<li>对于自己，该文件可读可写不可执行</li>
+<li>对于组内用户，该文件可读可写不可执行</li>
+<li>对于其他用户，该文件可读不可写不可执行</li>
+</ul>
+<p>文件权限的改变使用的是 <code>chmod</code>这个指令，但是，权限的设定方法有两种， 分别可以使用数字或者是符号来进行权限的变更。</p>
+<p><strong>使用数字改变权限</strong></p>
+<p>我们可以使用数字来代表各个权限，各权限的分数对照表如下：</p>
+<ul>
+<li>r 4</li>
+<li>w 2</li>
+<li>x 1</li>
+</ul>
+<p>每种身份(owner/group/others)各自的三个权限(r/w/x)分数是需要累加的，例如当权限为： [-rw-rw-r–] 分数则：</p>
+<ul>
+<li>owner = rw- = 4+2+0 = 6</li>
+<li>group = rw- = 4+2+0 = 6</li>
+<li>others= r– = 4+0+0 = 4</li>
+</ul>
+<p>我们使用chmod命令，语法如下：</p>
+<table>
+<thead>
+<tr>
+<th>命令</th>
+<th>数字</th>
+<th>目标</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>chmod</td>
+<td>764</td>
+<td>文件或目录</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>第一个数字表示owner的，第二个数字并表示group的，第三个数字表示others的。</p>
+</blockquote>
+<p>为<code>1.txt</code>文件增加<code>owner</code>的可执行权限，则为：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ chmod 764 1.txt</span><br><span class="line">$ ls -sl</span><br><span class="line">-rwxrw-r--  1 zhenggang zhenggang    0 Dec 23 15:40 1.txt</span><br></pre></td></tr></table></figure>
+
+<p>我们可以发现，各种权限是不重复的，如下：</p>
+<table>
+<thead>
+<tr>
+<th>数字</th>
+<th>可读</th>
+<th>可写</th>
+<th>可执行</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>0</td>
+<td>&times;</td>
+<td>&times;</td>
+<td>&times;</td>
+</tr>
+<tr>
+<td>1</td>
+<td>&times;</td>
+<td>&times;</td>
+<td>1</td>
+</tr>
+<tr>
+<td>2</td>
+<td>&times;</td>
+<td>2</td>
+<td>&times;</td>
+</tr>
+<tr>
+<td>3</td>
+<td>&times;</td>
+<td>2</td>
+<td>1</td>
+</tr>
+<tr>
+<td>4</td>
+<td>4</td>
+<td>&times;</td>
+<td>&times;</td>
+</tr>
+<tr>
+<td>5</td>
+<td>4</td>
+<td>&times;</td>
+<td>1</td>
+</tr>
+<tr>
+<td>6</td>
+<td>4</td>
+<td>2</td>
+<td>&times;</td>
+</tr>
+<tr>
+<td>7</td>
+<td>4</td>
+<td>2</td>
+<td>1</td>
+</tr>
+</tbody></table>
+<p>用户可以依据自己的需求设置相应的权限，当需要递归修改文件夹时，可以使用<code>-R</code>参数。</p>
+<p><strong>使用符号改变权限</strong></p>
+<table>
+<thead>
+<tr>
+<th>命令</th>
+<th>对象</th>
+<th>操作</th>
+<th>读写执行权限</th>
+<th>目标</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>chmod</td>
+<td>u(自己)<br/>g(同组用户)<br/>o(其他用户)<br/>a(所有人)</td>
+<td>+(加入)<br/>-(除去)<br/>=(设定)</td>
+<td>r(可读)<br/>w(可写)<br/>x(可执行)</td>
+<td>文件或目录</td>
+</tr>
+</tbody></table>
+<p>举例，将<code>1.txt</code> 从 <code>-rw-rw-r---</code> 改为<code>-rwxrw-r--</code> ：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ chmod u+x 1.txt</span><br><span class="line">$ ls -al</span><br><span class="line">-rwxrw-r--  1 zhenggang zhenggang    0 Dec 23 15:40 1.txt</span><br></pre></td></tr></table></figure>
+
+<h2 id="附录"><a href="#附录" class="headerlink" title="附录"></a>附录</h2><h3 id="A-Linux基本命令"><a href="#A-Linux基本命令" class="headerlink" title="A Linux基本命令"></a>A Linux基本命令</h3><p><strong>A1 基本命令</strong></p>
+<table>
+<thead>
+<tr>
+<th>命令</th>
+<th>含义</th>
+<th>格式</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>date</td>
+<td>显示日期和当前时间</td>
+<td>$ date</td>
+</tr>
+<tr>
+<td>who</td>
+<td>查询当前登录在系统中的用户信息</td>
+<td>$ who</td>
+</tr>
+<tr>
+<td>ps</td>
+<td>用于查看当前系统中的活跃进程</td>
+<td>$ ps [options]</td>
+</tr>
+<tr>
+<td>kill</td>
+<td>终止指定进程</td>
+<td>$ kill [-signal] pid</td>
+</tr>
+</tbody></table>
+<p><strong>A2 目录操作</strong></p>
+<table>
+<thead>
+<tr>
+<th>命令</th>
+<th>含义</th>
+<th>格式</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>mkdir</td>
+<td>创建目录</td>
+<td>$ mkdir directory …</td>
+</tr>
+<tr>
+<td>rmdir</td>
+<td>删除目录</td>
+<td>$ rmdir directory …</td>
+</tr>
+<tr>
+<td>pwd</td>
+<td>显示当前工作目录</td>
+<td>$ pwd</td>
+</tr>
+<tr>
+<td>ls</td>
+<td>显示目录内容</td>
+<td>$ ls [options] [names]，选项可合用</td>
+</tr>
+<tr>
+<td>cd</td>
+<td>改变工作目录</td>
+<td>$ cd [directory]</td>
+</tr>
+</tbody></table>
+<p><strong>A3 文件创建、复制与删除</strong></p>
+<table>
+<thead>
+<tr>
+<th>命令</th>
+<th>含义</th>
+<th>格式</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>touch</td>
+<td>创建内容为空的文件</td>
+<td>$ touch 文件名</td>
+</tr>
+<tr>
+<td>rm</td>
+<td>删除文件或目录</td>
+<td>$ rm [-r] [-f] [-i] file …</td>
+</tr>
+<tr>
+<td>cp</td>
+<td>复制文件或目录</td>
+<td>$ cp [-i] [-r] file1 [file2…] target <br/>-r 如果 file 为目录，则 cp 将复制该目录及其所有文件</td>
+</tr>
+<tr>
+<td>mv</td>
+<td>文件的搬移或更名</td>
+<td>$ mv file1 target</td>
+</tr>
+</tbody></table>
+<p><strong>A4 文件属性</strong></p>
+<table>
+<thead>
+<tr>
+<th>命令</th>
+<th>含义</th>
+<th>格式</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>chmod</td>
+<td>改变文件的读、写或执行权限</td>
+<td>$ chmod [who] operator [permission] file-list</td>
+</tr>
+<tr>
+<td>chown</td>
+<td>改变文件的属主</td>
+<td>$ chown [-R] [-h] owner file</td>
+</tr>
+<tr>
+<td>chgrp</td>
+<td>改变文件的组主</td>
+<td>$ chgrp [-R] [-h] group file</td>
+</tr>
+</tbody></table>
+<p><strong>A5 文件显示与连接</strong></p>
+<table>
+<thead>
+<tr>
+<th>命令</th>
+<th>含义</th>
+<th>格式</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>cat</td>
+<td>用于显示文件内容或文件连接</td>
+<td>$ cat file1 file2 显示 file1 和 file2 的内容 <br/> $ cat file1 file2 &gt; file3 将 file1 和 file2 合并成 file3</td>
+</tr>
+<tr>
+<td>more</td>
+<td>显示文件的内容</td>
+<td>$ more 文件名</td>
+</tr>
+<tr>
+<td>head</td>
+<td>显示文件的前几行</td>
+<td>$ head [-n] [file…]</td>
+</tr>
+<tr>
+<td>tail</td>
+<td>将文件从指定位置开始的内容全部显示到屏幕上</td>
+<td>$ tail [+n] [lbc] file 从文件头加上 n 处开始显示 <br/> $ tail [-n] [lbc] file 从文件尾减去 n 处开始显示 <br/> $ tail -f file 间隔 1 秒循环显示文件新内容</td>
+</tr>
+<tr>
+<td>ln</td>
+<td>建立指定文件的硬链接或符号链接</td>
+<td>$ ln [-s] [-f] [-n] file target</td>
+</tr>
+</tbody></table>
+<p><strong>A6 文件查找与比较</strong></p>
+<table>
+<thead>
+<tr>
+<th>命令</th>
+<th>含义</th>
+<th>格式</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>grep</td>
+<td>查找字符串</td>
+<td>$ grep pattern files</td>
+</tr>
+<tr>
+<td>find</td>
+<td>从指定目录开始，递归地从子目录寻找匹配文件</td>
+<td>$ find dirname option-list</td>
+</tr>
+<tr>
+<td>diff</td>
+<td>比较两个文本文件的差异</td>
+<td>$ diff [options] file1 file2</td>
+</tr>
+</tbody></table>
+<p><strong>A7 文件压缩与备份</strong></p>
+<table>
+<thead>
+<tr>
+<th>命令</th>
+<th>含义</th>
+<th>格式</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>compress</td>
+<td>进行文件压缩</td>
+<td>$ compress [-cfv] filename</td>
+</tr>
+<tr>
+<td>uncompress</td>
+<td>解压缩文件</td>
+<td>$ uncompress [-cfv] filename</td>
+</tr>
+<tr>
+<td>tar</td>
+<td>用于建立磁带档案（文件系统的备份）<br/> 或存到档案媒介或从档案媒介中读取文件</td>
+<td>$ tar c|t|x [bvf] [tarfile] [bsize] [file_list]</td>
+</tr>
+</tbody></table>
+<p><strong>A8 输入输出重定向</strong></p>
+<table>
+<thead>
+<tr>
+<th>命令</th>
+<th>含义</th>
+<th>格式</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>&lt;</td>
+<td>输入改向</td>
+<td>$ command &lt; file</td>
+</tr>
+<tr>
+<td>&gt;</td>
+<td>输出改向，更新指定文件内容</td>
+<td>$ command &gt; file</td>
+</tr>
+<tr>
+<td>&gt;&gt;</td>
+<td>输出改向，将执行结果接到指定文件内容后面</td>
+<td>$ command &gt;&gt; file</td>
+</tr>
+</tbody></table>
+<h3 id="B-Linux神书-—-《鸟哥的私房菜》"><a href="#B-Linux神书-—-《鸟哥的私房菜》" class="headerlink" title="B Linux神书 — 《鸟哥的私房菜》"></a>B Linux神书 — 《鸟哥的私房菜》</h3><p>在线版： <a target="_blank" rel="noopener" href="http://cn.linux.vbird.org/linux_basic/linux_basic.php">传送门</a></p>
+<p>下载版：<a target="_blank" rel="noopener" href="https://pan.baidu.com/s/1O7lMeEjHkYLv2dQFgE_4tA">百度网盘</a> 提取码: uj28</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/linux/" rel="tag"># linux</a>
+          
+            <a href="/tags/command/" rel="tag"># command</a>
+          
+            <a href="/tags/shell/" rel="tag"># shell</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/supercomputer-courses-module/" rel="next" title="超算入门课程4 module命令使用教学">
+                <i class="fa fa-chevron-left"></i> 超算入门课程4 module命令使用教学
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/supercomputer-courses-ssh-sftp-mobaxterm/" rel="prev" title="超算入门课程2 ssh和sftp工具的使用之mobaxterm软件教学">
+                超算入门课程2 ssh和sftp工具的使用之mobaxterm软件教学 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name"></p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/%7C%7C%20archive">
+              
+                  <span class="site-state-item-count">62</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">23</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">63</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-linux%E7%9A%84%E7%AE%80%E4%BB%8B"><span class="nav-number">1.</span> <span class="nav-text">1. linux的简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-linux%E7%9A%84%E5%9B%BE%E5%BD%A2%E7%95%8C%E9%9D%A2%E5%92%8C%E5%91%BD%E4%BB%A4%E8%A1%8C"><span class="nav-number">2.</span> <span class="nav-text">2. linux的图形界面和命令行</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-linux%E7%9A%84%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4"><span class="nav-number">3.</span> <span class="nav-text">3. linux的常用命令</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-1-%E4%B8%BE%E4%B8%80%E4%B8%AA%E4%BE%8B%E5%AD%90"><span class="nav-number">3.1.</span> <span class="nav-text">3.1 举一个例子</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2-%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4"><span class="nav-number">3.2.</span> <span class="nav-text">3.2 常用命令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2-%E6%96%87%E4%BB%B6%E7%9A%84%E6%9D%83%E9%99%90%EF%BC%88%E8%8F%9C%E9%B8%9F%E7%89%88%EF%BC%89"><span class="nav-number">3.3.</span> <span class="nav-text">3.2 文件的权限（菜鸟版）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2-%E6%96%87%E4%BB%B6%E7%9A%84%E6%9D%83%E9%99%90%EF%BC%88%E8%BF%9B%E9%98%B6%E7%89%88%EF%BC%89"><span class="nav-number">3.4.</span> <span class="nav-text">3.2 文件的权限（进阶版）</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%99%84%E5%BD%95"><span class="nav-number">4.</span> <span class="nav-text">附录</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#A-Linux%E5%9F%BA%E6%9C%AC%E5%91%BD%E4%BB%A4"><span class="nav-number">4.1.</span> <span class="nav-text">A Linux基本命令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#B-Linux%E7%A5%9E%E4%B9%A6-%E2%80%94-%E3%80%8A%E9%B8%9F%E5%93%A5%E7%9A%84%E7%A7%81%E6%88%BF%E8%8F%9C%E3%80%8B"><span class="nav-number">4.2.</span> <span class="nav-text">B Linux神书 — 《鸟哥的私房菜》</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">郑刚</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

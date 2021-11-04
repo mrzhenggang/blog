@@ -1,0 +1,1036 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="module," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="1. 什么是module Environment Modules包通过模块文件动态修改用户的环境。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="超算入门课程4 module命令使用教学">
+<meta property="og:url" content="https://blog.mrzhenggang.com/supercomputer-courses-module/index.html">
+<meta property="og:site_name" content="Mr.Zhenggang&#39;s Blog">
+<meta property="og:description" content="1. 什么是module Environment Modules包通过模块文件动态修改用户的环境。">
+<meta property="og:locale">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/mrzhenggang/CDN@master/img/module/module-logo.png">
+<meta property="article:published_time" content="2018-12-21T16:00:00.000Z">
+<meta property="article:modified_time" content="2021-11-04T17:07:53.937Z">
+<meta property="article:author" content="郑刚">
+<meta property="article:tag" content="module">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/mrzhenggang/CDN@master/img/module/module-logo.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://blog.mrzhenggang.com/supercomputer-courses-module/"/>
+
+
+
+
+
+  <title>超算入门课程4 module命令使用教学 | Mr.Zhenggang's Blog</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Mr.Zhenggang's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">郑刚的个人博客</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://blog.mrzhenggang.com/supercomputer-courses-module/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Mr.Zhenggang's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">超算入门课程4 module命令使用教学</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-22T00:00:00+08:00">
+                2018-12-22
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E8%B6%85%E7%AE%97%E5%85%A5%E9%97%A8%E8%AF%BE%E7%A8%8B/" itemprop="url" rel="index">
+                    <span itemprop="name">超算入门课程</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="1-什么是module"><a href="#1-什么是module" class="headerlink" title="1. 什么是module"></a>1. 什么是module</h2><p><img src="https://cdn.jsdelivr.net/gh/mrzhenggang/CDN@master/img/module/module-logo.png"></p>
+<p>Environment Modules包通过模块文件动态修改用户的环境。</p>
+<span id="more"></span>
+
+<table>
+<thead>
+<tr>
+<th>命令</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>module avail 或 module av</td>
+<td>查看系统中可用的软件</td>
+</tr>
+<tr>
+<td>module add 或 module load</td>
+<td>加载模块</td>
+</tr>
+<tr>
+<td>module rm 或 unload</td>
+<td>卸载模块</td>
+</tr>
+<tr>
+<td>module list 或 module li</td>
+<td>显示已加载模块</td>
+</tr>
+<tr>
+<td>module purge</td>
+<td>卸载所有模块</td>
+</tr>
+<tr>
+<td>module show</td>
+<td>显示模块配置文件</td>
+</tr>
+<tr>
+<td>module swap 或 module switch</td>
+<td>将模块1 替换为 模块2</td>
+</tr>
+<tr>
+<td>module help</td>
+<td>查看具体软件的信息</td>
+</tr>
+</tbody></table>
+<h2 id="2-module使用初级"><a href="#2-module使用初级" class="headerlink" title="2. module使用初级"></a>2. module使用初级</h2><h3 id="2-1-查看所有模块"><a href="#2-1-查看所有模块" class="headerlink" title="2.1 查看所有模块"></a>2.1 查看所有模块</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ module av</span><br><span class="line">------------- /usr/share/Modules/3.2.10/Applications -------------</span><br><span class="line">bedtools2/2.25.0-gcc4.8         </span><br><span class="line">bedtools2/2.26.0-gcc4.8(default)</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>上面的代码中，行首为<code>$</code>符的行是用户输入的命令，其他行为显示的结果，同下。</p>
+</blockquote>
+<p>说明：</p>
+<ol>
+<li>有2个module模块</li>
+<li>模块名称为<code>bedtools2/2.25.0-gcc4.8</code>和<code>bedtools2/2.26.0-gcc4.8</code></li>
+<li>模块名通常的命令方式为：软件名/版本-[编译器名]-[MPI编译器名]</li>
+<li>在 <code>bedtools2/2.26.0-gcc4.8</code>模块后面有一个<code>default</code>，表示它是<code>bedtools2</code>软件的默认版本，即只写<code>bedtools2</code> 即表示 <code>bedtools2/2.26.0-gcc4.8</code></li>
+</ol>
+<blockquote>
+<p> 在平台上有数百个可用module模块，此处只列2个教学用。</p>
+</blockquote>
+<p><strong>加载</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ module add bedtools2/2.25.0-gcc4.8</span><br><span class="line">$ </span><br></pre></td></tr></table></figure>
+
+<p>没有任何报错表明加载成功。</p>
+<h3 id="2-2-查看已加载模块"><a href="#2-2-查看已加载模块" class="headerlink" title="2.2 查看已加载模块"></a>2.2 查看已加载模块</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ module li</span><br><span class="line">Currently Loaded Modulefiles:</span><br><span class="line">  1) bedtools2/2.25.0-gcc4.8</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-3-使用已加载模块"><a href="#2-3-使用已加载模块" class="headerlink" title="2.3 使用已加载模块"></a>2.3 使用已加载模块</h3><p>我们看到<code>bedtools2/2.25.0-gcc4.8</code>已经成功加载了，用户可以直接调用<code>bedtools2</code>软件的相关命令了，例如：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">$ bedtools</span><br><span class="line">bedtools: flexible tools <span class="keyword">for</span> genome arithmetic and DNA sequence analysis.</span><br><span class="line">usage:    bedtools &lt;subcommand&gt; [options]</span><br><span class="line"></span><br><span class="line">The bedtools sub-commands include:</span><br><span class="line"></span><br><span class="line">[ Genome arithmetic ]</span><br><span class="line">    intersect     Find overlapping intervals <span class="keyword">in</span> various ways.</span><br><span class="line">    window        Find overlapping intervals within a window around an interval.</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>友情提示：在超算中心使用，登陆节点与计算节点是分开的，因此请使用作业调度系统提交任务。</p>
+</blockquote>
+<h3 id="2-4-卸载模块"><a href="#2-4-卸载模块" class="headerlink" title="2.4 卸载模块"></a>2.4 卸载模块</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ module rm bedtools2/2.25.0-gcc4.8</span><br><span class="line">$ module li</span><br><span class="line">No Modulefiles Currently Loaded.</span><br></pre></td></tr></table></figure>
+
+<p>到此处，我们学到了：</p>
+<ol>
+<li>如何查看所有的module模块 <code>module av</code></li>
+<li>如何加载一个模块 <code>module add 模块名</code></li>
+<li>如何查看已加载的模块 <code>module li</code></li>
+<li>如何卸载一个模块 <code>module rm 模块名</code></li>
+</ol>
+<hr>
+<h2 id="3-module使用中级"><a href="#3-module使用中级" class="headerlink" title="3. module使用中级"></a>3. module使用中级</h2><h3 id="3-1-显示模块详细信息"><a href="#3-1-显示模块详细信息" class="headerlink" title="3.1 显示模块详细信息"></a>3.1 显示模块详细信息</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">$ module show bedtools2/2.26.0-gcc4.8</span><br><span class="line">-------------------------------------------------------------------</span><br><span class="line">/usr/share/Modules/Applications/bedtools2/2.26.0-gcc4.8:</span><br><span class="line"></span><br><span class="line">module-whatis    bedtools2/2.26.0-gcc4.8</span><br><span class="line">conflict         bedtools2</span><br><span class="line">prepend-path     PATH /THL6/software/bedtools2/2.26.0-gcc4.8/bin</span><br><span class="line">-------------------------------------------------------------------</span><br></pre></td></tr></table></figure>
+
+<h3 id="3-2-替换模块"><a href="#3-2-替换模块" class="headerlink" title="3.2 替换模块"></a>3.2 替换模块</h3><p>当我们加载了<code>bedtools2/2.25.0-gcc4.8</code>模块后，希望更改为<code>bedtools2/2.26.0-gcc4.8</code>模块，应该怎么做呢？</p>
+<p>让我们先这样试一试：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">$ module li</span><br><span class="line">Currently Loaded Modulefiles:</span><br><span class="line">  1) bedtools2/2.25.0-gcc4.8</span><br><span class="line">$ module rm  bedtools2/2.26.0-gcc4.8</span><br><span class="line">$ module add bedtools2/2.26.0-gcc4.8</span><br><span class="line">bedtools2/2.26.0-gcc4.8(25):ERROR:150: Module <span class="string">&#x27;bedtools2/2.26.0-gcc4.8&#x27;</span> </span><br><span class="line">    conflicts with the currently loaded module(s) <span class="string">&#x27;bedtools2/2.25.0-gcc4.8&#x27;</span></span><br><span class="line">bedtools2/2.26.0-gcc4.8(25):ERROR:102: Tcl <span class="built_in">command</span> execution failed: </span><br><span class="line">    conflict   bedtools2</span><br></pre></td></tr></table></figure>
+
+<p>报错了！我们仔细观察这个错误<code>ERROR conflict  bedtools2</code>，想一想这是为什么？</p>
+<p><code>bedtools2</code>软件有2个版本的，我们已经加载了一个了，要不把之前的先卸载了试试？</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">$ module li</span><br><span class="line">Currently Loaded Modulefiles:</span><br><span class="line">  1) bedtools2/2.25.0-gcc4.8</span><br><span class="line"></span><br><span class="line">$ module rm bedtools2/2.25.0-gcc4.8</span><br><span class="line">$ module rm bedtools2/2.26.0-gcc4.8</span><br><span class="line"></span><br><span class="line">$ module li</span><br><span class="line">Currently Loaded Modulefiles:</span><br><span class="line">  1) bedtools2/2.26.0-gcc4.8</span><br></pre></td></tr></table></figure>
+
+<p>成功了！因此，同类型的软件只能加载一个，加载新的之前要卸载旧的，否则就<code>conflict</code> 冲突了。</p>
+<p>可是，更换版本是一个很常见的操作，有没有更简便的方法呢？有的，请往下看。</p>
+<p>更简单的方法为：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">$ module li</span><br><span class="line">Currently Loaded Modulefiles:</span><br><span class="line">  1) bedtools2/2.25.0-gcc4.8</span><br><span class="line"></span><br><span class="line">$ module swap bedtools2/2.25.0-gcc4.8 bedtools2/2.26.0-gcc4.8</span><br><span class="line"></span><br><span class="line">$ module li</span><br><span class="line">Currently Loaded Modulefiles:</span><br><span class="line">  1) bedtools2/2.26.0-gcc4.8</span><br></pre></td></tr></table></figure>
+
+<p>使用<code>module swap 旧模块名 新模块名</code> 即可实现模块替换。</p>
+<h3 id="3-3-卸载所有模块"><a href="#3-3-卸载所有模块" class="headerlink" title="3.3 卸载所有模块"></a>3.3 卸载所有模块</h3><p>当加载的模块非常多的时候，我们希望一次性都卸载了，命令为：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ module purge</span><br><span class="line">$ module li</span><br><span class="line">No Modulefiles Currently Loaded.</span><br></pre></td></tr></table></figure>
+
+<p>到此处，我们学到了：</p>
+<ol>
+<li>显示一个module模块的详细信息：<code>module show 模块名</code></li>
+<li>替换一个module模块为新的module模块：<code>module swap 旧模块名 新模块名</code></li>
+<li>一次性卸载所有已加载module模块：<code>module purge</code></li>
+</ol>
+<blockquote>
+<p>注意：我们遇到过一个报错<code>ERROR conflict  bedtools2</code> ，关键词为 <code>conflict</code> 即为版本冲突，它表明 <code>bedtools2</code>  模块已经加载，如果想加载新的，需要先卸载旧的。<br>我们可以用 <code>module li</code> 看看已加载的模块，把对应的冲突模块用<code>module rm</code>卸载后，在加载新的模块。<br>我们也可以用<code>module swap</code> 来直接将旧模块替换为新的模块。</p>
+</blockquote>
+<hr>
+<h2 id="4-module使用高级"><a href="#4-module使用高级" class="headerlink" title="4. module使用高级"></a>4. module使用高级</h2><h3 id="4-1-模块依赖问题-prereq"><a href="#4-1-模块依赖问题-prereq" class="headerlink" title="4.1 模块依赖问题 prereq"></a>4.1 模块依赖问题 prereq</h3><p>我们再次使用<code>module av</code>命令，查看所有可用的module模块，这次我们以<code>espresso</code>软件为例，因为它复杂一点点。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ module av </span><br><span class="line">------------- /usr/share/Modules/3.2.10/Applications -------------</span><br><span class="line">espresso/5.4.0-icc16-IMPI5.1</span><br></pre></td></tr></table></figure>
+
+<p>我们再来尝试加载一下<code>espresso/5.4.0-icc16-IMPI5.1</code>，输入命令：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ module add espresso/5.4.0-icc16-IMPI5.1</span><br><span class="line">espresso/5.4.0-icc16-IMPI5.1(27):ERROR:151: Module &#x27;espresso/5.4.0-icc16-IMPI5.1&#x27; </span><br><span class="line">    depends on one of the module(s) &#x27;Intel_compiler/16.0.3&#x27;</span><br><span class="line">espresso/5.4.0-icc16-IMPI5.1(27):ERROR:102: Tcl command execution failed: </span><br><span class="line">    prereq                Intel_compiler/16.0.3</span><br></pre></td></tr></table></figure>
+
+<p>很遗憾，这回有信息提示，竟然是<code>ERROR prereq  Intel_compiler/16.0.3</code>，这次又是为什么呢？</p>
+<p>我们观察这个模块的名称<code>espresso/5.4.0-icc16-IMPI5.1</code>，在第二节中我们提到过module模块的常见命名规则：软件名/版本-[编译器名]-[MPI编译器名]，因此我们分析如下：</p>
+<ul>
+<li>esresso 表示软件的名字</li>
+<li>5.4.0 是软件的版本</li>
+<li>icc16 是intel compiler的版本</li>
+<li>IMPI5.1 是MPI编译器的版本</li>
+</ul>
+<p>详解：</p>
+<blockquote>
+<p>一款并行程序通常需要串行编译器加并行编译器来编译，然后它通过类似<code>mpirun</code>的并行执行命令来运行。如果运行过程中缺少动态库就会报错。因此，我们设置了<code>依赖</code>关系，让加载软件模块的时候，必须预先加载<code>依赖</code>的其它模块（如编译器模块等），然后再加载模块本身，以免报错。</p>
+</blockquote>
+<p>我们仔细观察报错中的内容：<code>prereq  Intel_compiler/16.0.3</code>，它表明<code>espresso</code>这个模块依赖于<code>Intel_compiler</code>这个模块。</p>
+<p>我们决定先加载<code>Intel_compiler</code>，再加载<code>espresso</code>模块：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ module add Intel_compiler/16.0.3</span><br><span class="line">$ module add espresso/5.4.0-icc16-IMPI5.1</span><br></pre></td></tr></table></figure>
+
+<p>然后我们发现，有报错了，不过报错和之前的很类似。</p>
+<p>我们决定把<code>MPI/Intel/IMPI/5.1.3.210</code>模块也加载上，最终输入：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ module add Intel_compiler/16.0.3</span><br><span class="line">$ module add MPI/Intel/IMPI/5.1.3.210</span><br><span class="line">$ module add espresso/5.4.0-icc16-IMPI5.1</span><br></pre></td></tr></table></figure>
+
+<p>如下图，没有任何报错，就成功了。</p>
+<h3 id="4-2-自定义路径配置"><a href="#4-2-自定义路径配置" class="headerlink" title="4.2 自定义路径配置"></a>4.2 自定义路径配置</h3><p>用户可以通过设置 <code>MODULEPATH</code> 或者通过 <code>module</code> 命令来增加减少搜索路径。</p>
+<p>方法1：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">export</span> MODULEPATH=/path/to/new/directory:<span class="variable">$MODULEPATH</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">## 增加路径</span></span><br><span class="line">$ module use --append /path/to/new/directory</span><br><span class="line"><span class="comment">## 减少路径</span></span><br><span class="line">$ module unuse --append /path/to/old/directory</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>提别提醒：<code>MODULEPATH</code>等于号后面的值，以及<code>--append</code>后面的参数，都是实际希望增加或减少的搜索路径，不要照抄。</p>
+</blockquote>
+<h3 id="4-3-配置文件编写"><a href="#4-3-配置文件编写" class="headerlink" title="4.3 配置文件编写"></a>4.3 配置文件编写</h3><p>我们先来看一个标准的module配置文件模板</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#%Module1.0#####################################################################</span></span><br><span class="line"><span class="comment">##</span></span><br><span class="line"><span class="comment">## modules modulefile</span></span><br><span class="line"><span class="comment">##</span></span><br><span class="line"><span class="comment">## modulefiles/modules.  Generated from modules.in by configure.</span></span><br><span class="line"><span class="comment">##</span></span><br><span class="line">proc ModulesHelp &#123; &#125; &#123;</span><br><span class="line">                global version prefix</span><br><span class="line"></span><br><span class="line">                puts stderr <span class="string">&quot;\tespresso/5.4.0-icc16-IMPI5.1, link with Intel_compiler/16.0.3,&quot;</span> </span><br><span class="line">                puts stderr <span class="string">&quot;MPI/Intel/IMPI/5.1.3.210&quot;</span></span><br><span class="line">                puts stderr <span class="string">&quot;\n\tAfter loading the module, you can try to use espresso&quot;</span></span><br><span class="line">                puts stderr <span class="string">&quot;\tAdds Intel compilers to your environment variables.&quot;</span></span><br><span class="line">                puts stderr <span class="string">&quot;\n\tThis adds <span class="variable">$prefix</span>/* to several of the&quot;</span></span><br><span class="line">                puts stderr <span class="string">&quot;\tenvironment variables.&quot;</span></span><br><span class="line">                puts stderr <span class="string">&quot;\n\tVersion <span class="variable">$version</span>\n&quot;</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">module-whatis   <span class="string">&quot;espresso/5.4.0-icc16-IMPI5.1&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># for Tcl script use only</span></span><br><span class="line"><span class="built_in">set</span>     version         espresso/5.4.0-icc16-IMPI5.1</span><br><span class="line"><span class="built_in">set</span>     prefix          /home/software/espresso/5.4.0-icc16-IMPI5.1</span><br><span class="line"><span class="built_in">set</span>     exec_prefix     <span class="variable">$&#123;prefix&#125;</span></span><br><span class="line"><span class="built_in">set</span>     datarootdir     <span class="variable">$&#123;prefix&#125;</span>/share</span><br><span class="line"><span class="built_in">set</span>     INSTALL_DIR     <span class="variable">$&#123;prefix&#125;</span></span><br><span class="line"></span><br><span class="line">conflict        espresso</span><br><span class="line"></span><br><span class="line">prereq          Intel_compiler/16.0.3</span><br><span class="line">prereq          MPI/Intel/IMPI/5.1.3.210</span><br><span class="line"></span><br><span class="line">prepend-path    PATH           		<span class="variable">$&#123;prefix&#125;</span>/bin</span><br><span class="line">prepend-path    LD_LIBRARY_PATH		<span class="variable">$&#123;prefix&#125;</span>/lib</span><br><span class="line"></span><br><span class="line">prepend-path    LIBRARY_PATH		<span class="variable">$&#123;prefix&#125;</span>/lib</span><br><span class="line">prepend-path    PKG_CONFIG_PATH		<span class="variable">$&#123;prefix&#125;</span>/lib/pkgconfig</span><br><span class="line">prepend-path    C_INCLUDE_PATH		<span class="variable">$&#123;prefix&#125;</span>/include</span><br><span class="line">prepend-path    CXX_INCLUDE_PATH	<span class="variable">$&#123;prefix&#125;</span>/include</span><br><span class="line">prepend-path    MANPATH				<span class="variable">$&#123;datarootdir&#125;</span>/man</span><br></pre></td></tr></table></figure>
+
+<p>用户自己写module模块的时候，可以依照此模板进行修改。</p>
+<p>参数说明：</p>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>说明</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>proc ModulesHelp</td>
+<td>执行<code>module show 模块名</code>时候的反馈信息</td>
+<td></td>
+</tr>
+<tr>
+<td>set version</td>
+<td>设置版本</td>
+<td></td>
+</tr>
+<tr>
+<td>set prefix</td>
+<td>设置安装目录</td>
+<td>非常关键</td>
+</tr>
+<tr>
+<td>conflict</td>
+<td>设置<code>conflict</code>报错的</td>
+<td>这就是之前遇到<code>error</code>的原因，同下</td>
+</tr>
+<tr>
+<td>prereq</td>
+<td>用来设置依赖哪些模块的</td>
+<td></td>
+</tr>
+<tr>
+<td>prepend-path</td>
+<td>添加一个路径到某个环境变量</td>
+<td></td>
+</tr>
+<tr>
+<td>PATH</td>
+<td>将目录添加到<code>PATH</code>环境变量中</td>
+<td>最常用的环境变量就是<code>PATH</code>和<code>LD_LIBRARY_PATH</code></td>
+</tr>
+<tr>
+<td>LD_LIBRARY_PATH</td>
+<td>将目录添加到<code>LD_LIBRARY_PATH</code>环境变量中</td>
+<td></td>
+</tr>
+<tr>
+<td>LIBRARY_PATH 等</td>
+<td>与上面类似，通常运行软件命令时不需要，编译其他软件时候可能会用到</td>
+<td></td>
+</tr>
+</tbody></table>
+<h2 id="附录"><a href="#附录" class="headerlink" title="附录"></a>附录</h2><h3 id="A-安装"><a href="#A-安装" class="headerlink" title="A 安装"></a>A 安装</h3><h4 id="命令安装"><a href="#命令安装" class="headerlink" title="命令安装"></a>命令安装</h4><p>apt-get命令安装：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo apt-get install environment-modules</span><br></pre></td></tr></table></figure>
+
+<p>yum命令安装</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo yum install environment-modules</span><br></pre></td></tr></table></figure>
+
+<h4 id="源码安装"><a href="#源码安装" class="headerlink" title="源码安装"></a>源码安装</h4><p><strong>下载：</strong></p>
+<p>从<code>https://sourceforge.net/projects/modules/files/</code>下载module源码，如果系统缺少tcl环境，需要额外下载安装<code>tcl</code>环境。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#Modules-Tcl</span></span><br><span class="line">https://jaist.dl.sourceforge.net/project/modules/Modules-Tcl/modules-tcl-1.923.tar.gz</span><br><span class="line"><span class="comment"># Modules</span></span><br><span class="line">https://nchc.dl.sourceforge.net/project/modules/Modules/modules-3.2.10/modules-3.2.10.tar.gz</span><br></pre></td></tr></table></figure>
+
+<p><strong>编译：</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ tar zxvf modules-3.2.10.tar.gz</span><br><span class="line">$ <span class="built_in">cd</span> modules-3.2.10</span><br><span class="line">$ ./configure</span><br><span class="line">$ make</span><br><span class="line">$ make install</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>可以使用<code>--prefix</code>指定安装目录。</p>
+</blockquote>
+<p><strong>加载：</strong></p>
+<p>如果使用的不是命令安装方式，而是源码方式编译到非系统默认路径，需要在使用<code>module</code>命令的时候，加载环境变量。</p>
+<p>假如安装路径为 <code>$HOME/software</code> ，那么需要加载环境：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">source</span> <span class="variable">$HOME</span>/software/Modules/init/bash</span><br></pre></td></tr></table></figure>
+
+<p>针对其他shell环境，如<code>csh</code>，可以加载：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">source</span> <span class="variable">$HOME</span>/software/Modules/init/csh</span><br></pre></td></tr></table></figure>
+
+<p>以下命令均针对<code>bash</code>环境。</p>
+<p><strong>修改系统默认搜索路径</strong></p>
+<p>在上面我们介绍了用户设置路径的方法，此处我们介绍如何修改系统默认的module模块搜索路径。</p>
+<p>在安装后的<code>Modules/3.2.10/init</code>目录，打开隐藏文件，增加/删除路径实现配置。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ vim .modulespath</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>直接输入路径来增加搜索路径；通过<code>#</code>注释行，或直接删除行来减少搜索路径。</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment">#  @(#)$Id: 38aa24cc33a5f54a93781d63005a084f74418022 $</span></span><br><span class="line"><span class="comment">#  Module version 3.2.10</span></span><br><span class="line"><span class="comment">#  init/.modulespath.  Generated from .modulespath.in by configure.</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment">#  Modulepath initial setup</span></span><br><span class="line"><span class="comment">#  ========================</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment">#  This file defines the initial setup for the module files search path.</span></span><br><span class="line"><span class="comment">#  Comments may be added anywhere, which begin on # and continue until the</span></span><br><span class="line"><span class="comment">#     end of the line</span></span><br><span class="line"><span class="comment">#  Each line containing a single path will be added to the MODULEPATH</span></span><br><span class="line"><span class="comment">#     environment variable. You may add as many as you want - just</span></span><br><span class="line"><span class="comment">#     limited by the maximum variable size of your shell.</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line">/usr/share/Modules/versions                                <span class="comment"># location of version files</span></span><br><span class="line">/usr/share/Modules/<span class="variable">$MODULE_VERSION</span>/modulefiles     <span class="comment"># Module pkg modulefiles (if versioning)</span></span><br><span class="line"><span class="comment">#/usr/share/Modules/modulefiles    # Module pkg modulefiles (if no versioning)</span></span><br><span class="line">/usr/share/Modules/modulefiles                             <span class="comment"># General module files</span></span><br><span class="line"><span class="comment">#/usr/share/Modules/3.2.10/your_contribs                   # Edit for your requirements</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="B-常用命令列表"><a href="#B-常用命令列表" class="headerlink" title="B 常用命令列表"></a>B 常用命令列表</h3><p>表 Modules 常用命令</p>
+<table>
+<thead>
+<tr>
+<th>命令</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>module avail 或 module av</td>
+<td>查看系统中可用的软件</td>
+</tr>
+<tr>
+<td>module add 或 module load</td>
+<td>加载模块</td>
+</tr>
+<tr>
+<td>module rm 或 unload</td>
+<td>卸载模块</td>
+</tr>
+<tr>
+<td>module list 或 module li</td>
+<td>显示已加载模块</td>
+</tr>
+<tr>
+<td>module purge</td>
+<td>卸载所有模块</td>
+</tr>
+<tr>
+<td>module show</td>
+<td>显示模块配置文件</td>
+</tr>
+<tr>
+<td>module swap 或 module switch</td>
+<td>将模块1 替换为 模块2</td>
+</tr>
+<tr>
+<td>module help</td>
+<td>查看具体软件的信息</td>
+</tr>
+</tbody></table>
+<h3 id="C-遇到报错"><a href="#C-遇到报错" class="headerlink" title="C 遇到报错"></a>C 遇到报错</h3><p>常见报错有2类：</p>
+<p><strong>1. conflict</strong></p>
+<p>对于<code>conflict</code>而言，通常是由于同款软件不能同时加载多个版本，因此建议卸载之前的，再加载新的。提示哪个模块冲突了就卸载哪一个。</p>
+<p>举例：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ module add bedtools2/2.26.0-gcc4.8</span><br><span class="line">bedtools2/2.26.0-gcc4.8(25):ERROR:150: Module <span class="string">&#x27;bedtools2/2.26.0-gcc4.8&#x27;</span> </span><br><span class="line">    conflicts with the currently loaded module(s) <span class="string">&#x27;bedtools2/2.25.0-gcc4.8&#x27;</span></span><br><span class="line">bedtools2/2.26.0-gcc4.8(25):ERROR:102: Tcl <span class="built_in">command</span> execution failed: </span><br><span class="line">    conflict   bedtools2</span><br></pre></td></tr></table></figure>
+
+<p>我们要加载的是<code>bedtools2/2.26.0-gcc4.8</code>，但与<code>bedtools2/2.25.0-gcc4.8</code>冲突了，那么：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ module rm  bedtools2/2.25.0-gcc4.8</span><br><span class="line">$ module add bedtools2/2.26.0-gcc4.8</span><br><span class="line">$ </span><br></pre></td></tr></table></figure>
+
+<p><strong>2. prereq</strong></p>
+<p>对于<code>prereq</code>而言，通常是加载的模块依赖其他默认，因此必须先加载依赖的模块，在加载该模块。</p>
+<p>举例：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ module add espresso/5.4.0-icc16-IMPI5.1</span><br><span class="line">espresso/5.4.0-icc16-IMPI5.1(27):ERROR:151: Module <span class="string">&#x27;espresso/5.4.0-icc16-IMPI5.1&#x27;</span> </span><br><span class="line">    depends on one of the module(s) <span class="string">&#x27;Intel_compiler/16.0.3&#x27;</span></span><br><span class="line">espresso/5.4.0-icc16-IMPI5.1(27):ERROR:102: Tcl <span class="built_in">command</span> execution failed: </span><br><span class="line">    prereq                Intel_compiler/16.0.3</span><br></pre></td></tr></table></figure>
+
+<p>我们需要先加载<code>Intel_compiler/16.0.3</code>，再加载<code>espresso/5.4.0-icc16-IMPI5.1</code>。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ module add Intel_compiler/16.0.3</span><br><span class="line">$ module add espresso/5.4.0-icc16-IMPI5.1</span><br></pre></td></tr></table></figure>
+
+<p>留一个问题，以上两行命令能够加载成功吗？</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/module/" rel="tag"># module</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/supercomputer-courses-slurm/" rel="next" title="超算入门课程6 slurm作业管理系统使用教学">
+                <i class="fa fa-chevron-left"></i> 超算入门课程6 slurm作业管理系统使用教学
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/supercomputer-courses-linux-basic-commands/" rel="prev" title="超算入门课程3 linux基本命令教学">
+                超算入门课程3 linux基本命令教学 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name"></p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/%7C%7C%20archive">
+              
+                  <span class="site-state-item-count">62</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">23</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">63</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-%E4%BB%80%E4%B9%88%E6%98%AFmodule"><span class="nav-number">1.</span> <span class="nav-text">1. 什么是module</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-module%E4%BD%BF%E7%94%A8%E5%88%9D%E7%BA%A7"><span class="nav-number">2.</span> <span class="nav-text">2. module使用初级</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-%E6%9F%A5%E7%9C%8B%E6%89%80%E6%9C%89%E6%A8%A1%E5%9D%97"><span class="nav-number">2.1.</span> <span class="nav-text">2.1 查看所有模块</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-%E6%9F%A5%E7%9C%8B%E5%B7%B2%E5%8A%A0%E8%BD%BD%E6%A8%A1%E5%9D%97"><span class="nav-number">2.2.</span> <span class="nav-text">2.2 查看已加载模块</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-3-%E4%BD%BF%E7%94%A8%E5%B7%B2%E5%8A%A0%E8%BD%BD%E6%A8%A1%E5%9D%97"><span class="nav-number">2.3.</span> <span class="nav-text">2.3 使用已加载模块</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-4-%E5%8D%B8%E8%BD%BD%E6%A8%A1%E5%9D%97"><span class="nav-number">2.4.</span> <span class="nav-text">2.4 卸载模块</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-module%E4%BD%BF%E7%94%A8%E4%B8%AD%E7%BA%A7"><span class="nav-number">3.</span> <span class="nav-text">3. module使用中级</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-1-%E6%98%BE%E7%A4%BA%E6%A8%A1%E5%9D%97%E8%AF%A6%E7%BB%86%E4%BF%A1%E6%81%AF"><span class="nav-number">3.1.</span> <span class="nav-text">3.1 显示模块详细信息</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2-%E6%9B%BF%E6%8D%A2%E6%A8%A1%E5%9D%97"><span class="nav-number">3.2.</span> <span class="nav-text">3.2 替换模块</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-3-%E5%8D%B8%E8%BD%BD%E6%89%80%E6%9C%89%E6%A8%A1%E5%9D%97"><span class="nav-number">3.3.</span> <span class="nav-text">3.3 卸载所有模块</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-module%E4%BD%BF%E7%94%A8%E9%AB%98%E7%BA%A7"><span class="nav-number">4.</span> <span class="nav-text">4. module使用高级</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#4-1-%E6%A8%A1%E5%9D%97%E4%BE%9D%E8%B5%96%E9%97%AE%E9%A2%98-prereq"><span class="nav-number">4.1.</span> <span class="nav-text">4.1 模块依赖问题 prereq</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-2-%E8%87%AA%E5%AE%9A%E4%B9%89%E8%B7%AF%E5%BE%84%E9%85%8D%E7%BD%AE"><span class="nav-number">4.2.</span> <span class="nav-text">4.2 自定义路径配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-3-%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%E7%BC%96%E5%86%99"><span class="nav-number">4.3.</span> <span class="nav-text">4.3 配置文件编写</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%99%84%E5%BD%95"><span class="nav-number">5.</span> <span class="nav-text">附录</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#A-%E5%AE%89%E8%A3%85"><span class="nav-number">5.1.</span> <span class="nav-text">A 安装</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%91%BD%E4%BB%A4%E5%AE%89%E8%A3%85"><span class="nav-number">5.1.1.</span> <span class="nav-text">命令安装</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%BA%90%E7%A0%81%E5%AE%89%E8%A3%85"><span class="nav-number">5.1.2.</span> <span class="nav-text">源码安装</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#B-%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E5%88%97%E8%A1%A8"><span class="nav-number">5.2.</span> <span class="nav-text">B 常用命令列表</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#C-%E9%81%87%E5%88%B0%E6%8A%A5%E9%94%99"><span class="nav-number">5.3.</span> <span class="nav-text">C 遇到报错</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">郑刚</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
