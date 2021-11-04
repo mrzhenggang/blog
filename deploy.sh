@@ -2,6 +2,10 @@
 set -ex
 git config --global http.sslVerify "false"
 
+if [ -d public ]; then
+  rm -rf public
+fi
+
 # 生成静态文件
 hexo clean && hexo g 
 echo "blog.mrzhenggang.com" > public/CNAME
@@ -10,6 +14,9 @@ echo "blog.mrzhenggang.com" > public/CNAME
 # 配置git
 git config --global user.name "zhenggang"
 git config --global user.email "mrzhenggang@foxmail.com" 
+
+# 
+mv public docs
 
 # deploy nscc.git
 msg='来自郑刚的手动部署'
